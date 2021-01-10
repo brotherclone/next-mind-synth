@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: NeuroTagMaterial_transparent_unlit
-  m_Shader: {fileID: 4800000, guid: 83fc45c264c2cb049ac532ae263e92f8, type: 3}
-  m_ShaderKeywords: CONSTANT_SIZE MAIN_ALPHA TRIPLANAR
+  m_Shader: {fileID: 4800000, guid: 3829179c82fee61488ec667e779a143f, type: 3}
+  m_ShaderKeywords: CONSTANT_SIZE MAIN_ALPHA SCREEN_COORDINATES
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
