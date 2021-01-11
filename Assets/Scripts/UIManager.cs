@@ -7,15 +7,13 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject leftPanel;
-    public TMP_Text statusText;
+    public GameObject dronePanel;
     private List<GameObject> _panels = new List<GameObject>();
     private Animator _currentAnimator;
  
     private void InitializeUI()
     {
-        _panels.Add(leftPanel);
-        statusText.text = "Loaded";
+        _panels.Add(dronePanel);
         Debug.Log("UI Loaded");
     }
 
@@ -23,8 +21,8 @@ public class UIManager : MonoBehaviour
     {
         switch (panelName)
         {
-            case PanelName.LeftPanel:
-                _currentAnimator = leftPanel.GetComponent<Animator>();
+            case PanelName.DronePanel:
+                _currentAnimator = dronePanel.GetComponent<Animator>();
                 var status = _currentAnimator.GetBool("isDisplayed");
                 _currentAnimator.SetBool("isDisplayed", !status);
                 _tagUIInteraction.EnableDisableTag(true);
@@ -41,12 +39,7 @@ public class UIManager : MonoBehaviour
     {
         
     }
-
-    private bool AnimationFinished()
-    {
-        return _currentAnimator.GetCurrentAnimatorStateInfo(0).length >
-               _currentAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-    }
+    
 }
 
 public enum UIActions{
@@ -62,8 +55,8 @@ public enum UIType
 public enum PanelName
 {
     None,
-    LeftPanel,
-    RightPanel,
-    BottomPanel,
-    MainPanel
+    DronePanel,
+    PitchPanel,
+    VolumePanel,
+    PlayPanel
 }
