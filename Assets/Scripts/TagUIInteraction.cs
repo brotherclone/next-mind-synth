@@ -32,7 +32,6 @@ public class TagUIInteraction :  MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Awake");
         if (neuroTag == null)
         {
             neuroTag = GetComponentInParent<NeuroTag>();
