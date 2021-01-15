@@ -11,7 +11,7 @@
       "midi_number":22,
       "keyboard_number":2,
       "frequency":29.14,
-      "note_name":"A#",
+      "note_name":"A♯",
       "octave_number":0
     },
     {
@@ -32,7 +32,7 @@
       "midi_number":25,
       "keyboard_number":5,
       "frequency":34.65,
-      "note_name":"C#",
+      "note_name":"C♯",
       "octave_number":1
     },
     {
@@ -46,7 +46,7 @@
       "midi_number":27,
       "keyboard_number":7,
       "frequency":38.89,
-      "note_name":"D#",
+      "note_name":"D♯",
       "octave_number":1
     },
     {
@@ -67,7 +67,7 @@
       "midi_number":30,
       "keyboard_number":10,
       "frequency":46.25,
-      "note_name":"F#",
+      "note_name":"F♯",
       "octave_number":1
     },
     {
@@ -81,7 +81,7 @@
       "midi_number":32,
       "keyboard_number":12,
       "frequency":51.91,
-      "note_name":"G#",
+      "note_name":"G♯",
       "octave_number":1
     },
     {
@@ -95,7 +95,7 @@
       "midi_number":34,
       "keyboard_number":14,
       "frequency":58.27,
-      "note_name":"A#",
+      "note_name":"A♯",
       "octave_number":1
     },
     {
@@ -116,7 +116,7 @@
       "midi_number":37,
       "keyboard_number":17,
       "frequency":69.3,
-      "note_name":"C#",
+      "note_name":"C♯",
       "octave_number":2
     },
     {
@@ -130,7 +130,7 @@
       "midi_number":39,
       "keyboard_number":19,
       "frequency":77.78,
-      "note_name":"D#",
+      "note_name":"D♯",
       "octave_number":2
     },
     {
@@ -151,7 +151,7 @@
       "midi_number":42,
       "keyboard_number":22,
       "frequency":92.5,
-      "note_name":"F#",
+      "note_name":"F♯",
       "octave_number":2
     },
     {
@@ -165,7 +165,7 @@
       "midi_number":44,
       "keyboard_number":24,
       "frequency":103.83,
-      "note_name":"G#",
+      "note_name":"G♯",
       "octave_number":2
     },
     {
@@ -179,7 +179,7 @@
       "midi_number":46,
       "keyboard_number":26,
       "frequency":116.54,
-      "note_name":"A#",
+      "note_name":"A♯",
       "octave_number":2
     },
     {
@@ -200,7 +200,7 @@
       "midi_number":49,
       "keyboard_number":29,
       "frequency":138.59,
-      "note_name":"C#",
+      "note_name":"C♯",
       "octave_number":3
     },
     {
@@ -214,7 +214,7 @@
       "midi_number":51,
       "keyboard_number":31,
       "frequency":155.56,
-      "note_name":"D#",
+      "note_name":"D♯",
       "octave_number":3
     },
     {
@@ -235,7 +235,7 @@
       "midi_number":54,
       "keyboard_number":34,
       "frequency":185.0,
-      "note_name":"F#",
+      "note_name":"F♯",
       "octave_number":3
     },
     {
@@ -249,7 +249,7 @@
       "midi_number":56,
       "keyboard_number":36,
       "frequency":207.65,
-      "note_name":"G#",
+      "note_name":"G♯",
       "octave_number":3
     },
     {
@@ -263,7 +263,7 @@
       "midi_number":58,
       "keyboard_number":38,
       "frequency":233.08,
-      "note_name":"A#",
+      "note_name":"A♯",
       "octave_number":3
     },
     {
@@ -284,7 +284,7 @@
       "midi_number":61,
       "keyboard_number":41,
       "frequency":277.18,
-      "note_name":"C#",
+      "note_name":"C♯",
       "octave_number":4
     },
     {
@@ -298,7 +298,7 @@
       "midi_number":63,
       "keyboard_number":43,
       "frequency":311.13,
-      "note_name":"D#",
+      "note_name":"D♯",
       "octave_number":4
     },
     {
@@ -319,7 +319,7 @@
       "midi_number":66,
       "keyboard_number":46,
       "frequency":369.99,
-      "note_name":"F#",
+      "note_name":"F♯",
       "octave_number":4
     },
     {
@@ -333,7 +333,7 @@
       "midi_number":68,
       "keyboard_number":48,
       "frequency":415.3,
-      "note_name":"G#",
+      "note_name":"G♯",
       "octave_number":4
     },
     {
@@ -347,7 +347,7 @@
       "midi_number":70,
       "keyboard_number":50,
       "frequency":466.16,
-      "note_name":"A#",
+      "note_name":"A♯",
       "octave_number":4
     },
     {
@@ -368,7 +368,7 @@
       "midi_number":73,
       "keyboard_number":53,
       "frequency":554.37,
-      "note_name":"C#",
+      "note_name":"C♯",
       "octave_number":5
     },
     {
@@ -382,7 +382,7 @@
       "midi_number":75,
       "keyboard_number":55,
       "frequency":622.25,
-      "note_name":"D#",
+      "note_name":"D♯",
       "octave_number":5
     },
     {
@@ -403,7 +403,7 @@
       "midi_number":78,
       "keyboard_number":58,
       "frequency":739.99,
-      "note_name":"F#",
+      "note_name":"F♯",
       "octave_number":5
     },
     {
@@ -417,7 +417,7 @@
       "midi_number":80,
       "keyboard_number":60,
       "frequency":830.61,
-      "note_name":"G#",
+      "note_name":"G♯",
       "octave_number":5
     },
     {
@@ -431,7 +431,7 @@
       "midi_number":82,
       "keyboard_number":62,
       "frequency":932.33,
-      "note_name":"A#",
+      "note_name":"A♯",
       "octave_number":5
     },
     {
@@ -452,7 +452,7 @@
       "midi_number":85,
       "keyboard_number":65,
       "frequency":1108.73,
-      "note_name":"C#",
+      "note_name":"C♯",
       "octave_number":6
     },
     {
@@ -466,7 +466,7 @@
       "midi_number":87,
       "keyboard_number":67,
       "frequency":1244.51,
-      "note_name":"D#",
+      "note_name":"D♯",
       "octave_number":6
     },
     {
@@ -487,7 +487,7 @@
       "midi_number":90,
       "keyboard_number":70,
       "frequency":1479.98,
-      "note_name":"F#",
+      "note_name":"F♯",
       "octave_number":6
     },
     {
@@ -501,7 +501,7 @@
       "midi_number":92,
       "keyboard_number":72,
       "frequency":1661.22,
-      "note_name":"G#",
+      "note_name":"G♯",
       "octave_number":6
     },
     {
@@ -515,7 +515,7 @@
       "midi_number":94,
       "keyboard_number":74,
       "frequency":1864.66,
-      "note_name":"A#",
+      "note_name":"A♯",
       "octave_number":6
     },
     {
@@ -536,7 +536,7 @@
       "midi_number":97,
       "keyboard_number":77,
       "frequency":2217.46,
-      "note_name":"C#",
+      "note_name":"C♯",
       "octave_number":7
     },
     {
@@ -550,7 +550,7 @@
       "midi_number":99,
       "keyboard_number":79,
       "frequency":2489.02,
-      "note_name":"D#",
+      "note_name":"D♯",
       "octave_number":7
     },
     {
@@ -571,7 +571,7 @@
       "midi_number":102,
       "keyboard_number":82,
       "frequency":2959.96,
-      "note_name":"F#",
+      "note_name":"F♯",
       "octave_number":7
     },
     {
@@ -585,7 +585,7 @@
       "midi_number":104,
       "keyboard_number":84,
       "frequency":3322.44,
-      "note_name":"G#",
+      "note_name":"G♯",
       "octave_number":7
     },
     {
@@ -599,7 +599,7 @@
       "midi_number":106,
       "keyboard_number":86,
       "frequency":3729.31,
-      "note_name":"A#",
+      "note_name":"A♯",
       "octave_number":7
     },
     {
@@ -615,139 +615,6 @@
       "frequency":4186.01,
       "note_name":"C",
       "octave_number":8
-    },
-    {
-      "midi_number":109,
-      "keyboard_number":89,
-      "frequency":4434.92,
-      "note_name":"C#",
-      "octave_number":8
-    },
-    {
-      "midi_number":110,
-      "keyboard_number":90,
-      "frequency":4698.64,
-      "note_name":"D",
-      "octave_number":8
-    },
-    {
-      "midi_number":111,
-      "keyboard_number":91,
-      "frequency":4978.03,
-      "note_name":"D#",
-      "octave_number":8
-    },
-    {
-      "midi_number":112,
-      "keyboard_number":92,
-      "frequency":5274.04,
-      "note_name":"E",
-      "octave_number":8
-    },
-    {
-      "midi_number":113,
-      "keyboard_number":93,
-      "frequency":5587.65,
-      "note_name":"F",
-      "octave_number":8
-    },
-    {
-      "midi_number":114,
-      "keyboard_number":94,
-      "frequency":5919.91,
-      "note_name":"F#",
-      "octave_number":8
-    },
-    {
-      "midi_number":115,
-      "keyboard_number":95,
-      "frequency":6271.93,
-      "note_name":"G",
-      "octave_number":8
-    },
-    {
-      "midi_number":116,
-      "keyboard_number":96,
-      "frequency":6644.88,
-      "note_name":"G#",
-      "octave_number":8
-    },
-    {
-      "midi_number":117,
-      "keyboard_number":97,
-      "frequency":7040.0,
-      "note_name":"A",
-      "octave_number":8
-    },
-    {
-      "midi_number":118,
-      "keyboard_number":98,
-      "frequency":7458.62,
-      "note_name":"A#",
-      "octave_number":8
-    },
-    {
-      "midi_number":119,
-      "keyboard_number":99,
-      "frequency":7902.13,
-      "note_name":"B",
-      "octave_number":8
-    },
-    {
-      "midi_number":120,
-      "keyboard_number":100,
-      "frequency":8372.02,
-      "note_name":"C",
-      "octave_number":9
-    },
-    {
-      "midi_number":121,
-      "keyboard_number":101,
-      "frequency":8869.84,
-      "note_name":"C#",
-      "octave_number":9
-    },
-    {
-      "midi_number":122,
-      "keyboard_number":102,
-      "frequency":9397.27,
-      "note_name":"D",
-      "octave_number":9
-    },
-    {
-      "midi_number":123,
-      "keyboard_number":103,
-      "frequency":9956.06,
-      "note_name":"D#",
-      "octave_number":9
-    },
-    {
-      "midi_number":124,
-      "keyboard_number":104,
-      "frequency":10548.08,
-      "note_name":"E",
-      "octave_number":9
-    },
-    {
-      "midi_number":125,
-      "keyboard_number":105,
-      "frequency":11175.3,
-      "note_name":"F",
-      "octave_number":9
-    },
-    {
-      "midi_number":126,
-      "keyboard_number":106,
-      "frequency":11839.82,
-      "note_name":"F#",
-      "octave_number":9
-    },
-    {
-      "midi_number":127,
-      "keyboard_number":107,
-      "frequency":12543.85,
-      "note_name":"G",
-      "octave_number":9
     }
   ]
 }
