@@ -5,14 +5,15 @@ using JetBrains.Annotations;
 [Serializable]
 public class Note {
 
-    public int midiNumber;
+    public int midi_number;
     public float frequency;
-    public int octaveNumber;
-    public string noteName;
+    public int octave_number;
+    public string note_name;
+    public int keyboard_number;
     [CanBeNull] public string noteAlias;
 
     public string GETMidiNoteName()
     {
-        return noteAlias+octaveNumber;
+        return note_name+octave_number;
     }
 }
