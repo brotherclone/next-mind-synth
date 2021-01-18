@@ -8,12 +8,42 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public GameObject dronePanel;
+    public GameObject pitchPanel;
+    public GameObject playPanel;
+    public GameObject volumePanel;
+
+    public TMP_Text confidenceText;
+    public TMP_Text triggeringText;
+    public TMP_Text midiConnectionText;
+    public TMP_Text currentKeyText;
+    public TMP_Text currentModeText;
+    public TMP_Text currentDronesText;
+    public TMP_Text currentVolumeText;
+    public TMP_Text instructionsText;
+    public TMP_Text alertText;
+    
     private List<GameObject> _panels = new List<GameObject>();
+    private List<TMP_Text> _uiTexts = new List<TMP_Text>();
+    
     private Animator _currentAnimator;
  
     private void InitializeUI()
     {
         _panels.Add(dronePanel);
+        _panels.Add(pitchPanel);
+        _panels.Add(playPanel);
+        _panels.Add(volumePanel);
+        
+        _uiTexts.Add(confidenceText);
+        _uiTexts.Add(triggeringText);
+        _uiTexts.Add(midiConnectionText);
+        _uiTexts.Add(currentKeyText);
+        _uiTexts.Add(currentModeText);
+        _uiTexts.Add(currentDronesText);
+        _uiTexts.Add(currentVolumeText);
+        _uiTexts.Add(instructionsText);
+        _uiTexts.Add(alertText);
+        
         Debug.Log("UI Loaded");
     }
 
