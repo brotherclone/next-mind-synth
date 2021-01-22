@@ -6,16 +6,23 @@ using UnityEngine;
 public class Oscilation : MonoBehaviour
 {
     private float sampleRate = 44100;
-    [Range(50, 1000)] public float frequency = 1f;
+    private float _frequency = 1f;
     [Range(0, 1)] public float amplitude;
     public SignalType signalType = SignalType.Sine;
     int timeIndex = 0;
     void OnAudioFilterRead(float[] data, int channels)
     {
+        // TEMP
+        if (_frequency != NoteManager.Instance.currentFrequency())
+        {
+            Debug.Log("Change freq" + _frequency);
+        }
+        _frequency = NoteManager.Instance.currentFrequency();
+        
         for (int i = 0; i < data.Length; i += channels)
         {
             
-            data[i] = SignalGeneration(timeIndex, frequency, sampleRate, amplitude);
+            data[i] = SignalGeneration(timeIndex, _frequency, sampleRate, amplitude);
             
             if (channels == 2)
                 data[i + 1] = data[i];

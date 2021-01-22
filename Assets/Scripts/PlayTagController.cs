@@ -8,11 +8,15 @@ public class PlayTagController : MonoBehaviour
 {
     public NeuroTag neuroTag;
     
+    public int position;
+    
     private float _currentConfidenceValue = 0;
 
     private float _targetConfidenceValue = 0;
 
     //private bool _interpolateConfidenceValue = true;
+
+    
     
     private void Awake()
     {
@@ -29,7 +33,8 @@ public class PlayTagController : MonoBehaviour
     
     private void OnTagTrigger()
     {
-        //Debug.Log("Triggered");
+        Debug.Log("Triggered");
+        NoteManager.Instance.setCurrentNote(position);
     }
     
     private void OnConfidenceUpdated(float value)

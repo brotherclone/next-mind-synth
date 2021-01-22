@@ -4,14 +4,41 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
-public class NoteManager : MonoBehaviour
+public class NoteManager : Singleton<NoteManager>
 {
+    protected NoteManager() {}
     public string noteDataPath;
     private NoteCollection _noteCollection;
     public List<Note> notes;
     public List<Note> currentScale;
+    
+    /*
+    Major	    T T S T T T S
+    Minor	    T S T T S T T
+    Ionian	    T T S T T T S
+    Dorian	    T S T T T S T
+    Phrygian	S T T T S T T
+    Lydian	    T T T S T T S
+    Mixolydian	T T S T T S T
+    Aeolian	    T S T T S T T
+    Locrian	    S T T S T T T
+    */
+    
+    private readonly int[] _majorSteps = new[] {0, 2, 2, 1, 2, 2, 2, 1};
+    private readonly int[] _minorSteps = new[] {0, 2, 1, 2, 2, 1, 2, 2};
+    private readonly int[] _ionianSteps = new[] {0, 2, 2, 1, 2, 2, 2, 1};
+    private readonly int[] _dorianSteps = new[] {0, 2, 1, 2, 2, 2, 1, 2};
+    private readonly int[] _phrygianSteps = new[] {0, 1, 2, 2, 2, 1, 2, 2};
+    private readonly int[] _lydianSteps = new[] {0, 2, 2, 2, 1, 2, 2, 1};
+    private readonly int[] _mixolydianSteps = new[] {0, 2, 2, 1, 2, 2, 1, 2};
+    private readonly int[] _aeolianSteps = new[] {0, 2, 1, 2, 2, 1, 2, 2};
+    private readonly int[] _locrianSteps = new[] {0, 1, 2, 2, 1, 2, 2, 2};
+    private int[] _currentInterval = new int[8];
+
+    public Note currentNote;
     
     private void LoadNoteData()
     {
@@ -24,7 +51,7 @@ public class NoteManager : MonoBehaviour
                notes.Add( _noteCollection.notes[i]);
             }
         }
-        MakeMajor(60);
+        MakeScale(69, ScalesAndModes.Minor);
     }
 
     private void Start()
@@ -39,25 +66,91 @@ public class NoteManager : MonoBehaviour
             foreach (var n in notes.Where(n => n.midi_number == t))
             {
                 currentScale.Add(n);
-                Debug.Log(n.note_name);
+                Debug.Log(n.note_name + " ADDED");
             }
+        }
+
+        setCurrentNote(0); 
+    }
+
+    public void setCurrentNote(int position)
+    {
+        Debug.Log(" position " + position);
+        Debug.Log("setCurrentNote called for "+ currentScale[position].note_name + " " + currentScale[position].frequency );
+        if (position < currentScale.Count)
+        {
+            currentNote = currentScale[position];  
         }
     }
 
-    private void MakeMajor(int startMidiNumber)
+    public float currentFrequency()
     {
-        //T-T-S-T-T-T-S,
-        var majorSteps = new[] { 0,2,2,1,2,2,2,1 };
-        var majorStepCounter = 0;
+        return currentNote.frequency;
+    }
+
+    private void MakeScale(int startMidiNumber, ScalesAndModes scalesAndModes)
+    {
+        switch (scalesAndModes)
+        {
+            case ScalesAndModes.Aeolian:
+                _currentInterval = _aeolianSteps;
+                break;
+            case ScalesAndModes.Dorian:
+                _currentInterval = _dorianSteps;
+                break;
+            case ScalesAndModes.Ionian:
+                _currentInterval = _ionianSteps;
+                break;
+            case ScalesAndModes.Locrian:
+                _currentInterval = _locrianSteps;
+                break;
+            case ScalesAndModes.Lydian:
+                _currentInterval = _lydianSteps;
+                break;
+            case ScalesAndModes.Minor:
+                _currentInterval = _minorSteps;
+                break;
+            case ScalesAndModes.Mixolydian:
+                _currentInterval = _mixolydianSteps;
+                break;
+            case ScalesAndModes.Phrygian:
+                _currentInterval = _phrygianSteps;
+                break;
+            case ScalesAndModes.Major:
+                break;
+            default:
+                _currentInterval = _majorSteps;
+                break;
+        }
+
+        for (int i = 0; i < _currentInterval.Length; i++)
+        {
+            Debug.Log("checking current interval" + _currentInterval[i]);
+        }        
+        var stepCounter = 0;
         var midiNoteCounter = startMidiNumber;
         var scaleMidiNumbers = new List<int>();
-        while (majorStepCounter < majorSteps.Length)
+        while (stepCounter < _currentInterval.Length)
         {
             scaleMidiNumbers.Add(midiNoteCounter);
-            if (midiNoteCounter + majorSteps[majorStepCounter] >= 127) continue;
-            midiNoteCounter += majorSteps[majorStepCounter];
-            ++majorStepCounter;
+            if (midiNoteCounter + _currentInterval[stepCounter] >= 127) continue;
+            midiNoteCounter += _currentInterval[stepCounter];
+            ++stepCounter;
         }
         GetMidiNotesFromNumbers(scaleMidiNumbers);
     }
+
+}
+
+public enum ScalesAndModes
+{
+    Major,
+    Minor,
+    Ionian,
+    Dorian,
+    Phrygian,
+    Lydian,
+    Mixolydian,
+    Aeolian,
+    Locrian
 }
