@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -14,7 +15,8 @@ public class NoteManager : Singleton<NoteManager>
     private NoteCollection _noteCollection;
     public List<Note> notes;
     public List<Note> currentScale;
-    
+
+    public string currentScaleName;
     /*
     Major	    T T S T T T S
     Minor	    T S T T S T T
@@ -39,6 +41,9 @@ public class NoteManager : Singleton<NoteManager>
     private int[] _currentInterval = new int[8];
 
     public Note currentNote;
+    public float currentVolume;
+    private float _previousVolume;
+    private bool _isMuted;
     
     private void LoadNoteData()
     {
@@ -75,11 +80,10 @@ public class NoteManager : Singleton<NoteManager>
 
     public void setCurrentNote(int position)
     {
-        Debug.Log(" position " + position);
-        Debug.Log("setCurrentNote called for "+ currentScale[position].note_name + " " + currentScale[position].frequency );
         if (position < currentScale.Count)
         {
-            currentNote = currentScale[position];  
+            currentNote = currentScale[position];
+            UIManager.Instance.UpDateInfoTexts(InfoText.Triggering, currentNote.note_name);
         }
     }
 
@@ -88,6 +92,11 @@ public class NoteManager : Singleton<NoteManager>
         return currentNote.frequency;
     }
 
+    public float currentVolumeLevel()
+    {
+        return currentVolume;
+    }
+    
     private void MakeScale(int startMidiNumber, ScalesAndModes scalesAndModes)
     {
         switch (scalesAndModes)
@@ -116,17 +125,11 @@ public class NoteManager : Singleton<NoteManager>
             case ScalesAndModes.Phrygian:
                 _currentInterval = _phrygianSteps;
                 break;
-            case ScalesAndModes.Major:
-                break;
             default:
                 _currentInterval = _majorSteps;
                 break;
         }
-
-        for (int i = 0; i < _currentInterval.Length; i++)
-        {
-            Debug.Log("checking current interval" + _currentInterval[i]);
-        }        
+        
         var stepCounter = 0;
         var midiNoteCounter = startMidiNumber;
         var scaleMidiNumbers = new List<int>();
@@ -138,6 +141,37 @@ public class NoteManager : Singleton<NoteManager>
             ++stepCounter;
         }
         GetMidiNotesFromNumbers(scaleMidiNumbers);
+    }
+    
+    public void SetVolume(float volume)
+    {
+        if (volume <= 0.0 && _isMuted != true)
+        {
+            Mute();
+        }
+        else
+        {
+            currentVolume = volume;
+            var volumePercent = Math.Floor(volume * 100);
+            UIManager.Instance.UpDateInfoTexts(InfoText.Volume, volumePercent.ToString(CultureInfo.CurrentCulture)+"%");
+        }
+    }
+
+    public void Mute()
+    {
+        if (_isMuted != true)
+        {
+            _previousVolume = currentVolume;
+            SetVolume(0f);
+            _isMuted = true;
+            UIManager.Instance.UpDateInfoTexts(InfoText.Volume, "!MUTE!");
+        }
+        else
+        {
+            SetVolume(_previousVolume);
+            _isMuted = false;
+        }
+       
     }
 
 }
