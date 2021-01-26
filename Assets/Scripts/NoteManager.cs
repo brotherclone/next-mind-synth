@@ -44,6 +44,10 @@ public class NoteManager : Singleton<NoteManager>
     public float currentVolume;
     private float _previousVolume;
     private bool _isMuted;
+    private ScalesAndModes _currentScaleMode;
+    private Note _currentScaleNote;
+    private string _currentScaleName;
+    public OSC osc;
     
     private void LoadNoteData()
     {
@@ -62,6 +66,7 @@ public class NoteManager : Singleton<NoteManager>
     private void Start()
     {
         LoadNoteData();
+
     }
 
     private void GetMidiNotesFromNumbers(IReadOnlyList<int> noteNumbers)
@@ -74,17 +79,54 @@ public class NoteManager : Singleton<NoteManager>
                 Debug.Log(n.note_name + " ADDED");
             }
         }
-
         setCurrentNote(0); 
     }
 
+    private void GetMidiNoteFromNumber(int noteNumber)
+    {
+        foreach (var n in notes.Where(n => n.midi_number == noteNumber))
+        {
+            _currentScaleNote = n;
+        }
+    }
+    
     public void setCurrentNote(int position)
     {
         if (position < currentScale.Count)
         {
             currentNote = currentScale[position];
             UIManager.Instance.UpDateInfoTexts(InfoText.Triggering, currentNote.note_name);
+            TransmitOSC(currentNote);
         }
+    }
+
+
+    private void TransmitOSC(Note note)
+    {
+        Debug.Log("Transmit Called");
+        var _oscMessage = new OscMessage();
+        _oscMessage.address = "/NextMindSynth/Cantor";
+        _oscMessage.values.Add(note.midi_number);
+        var vol = CurrentVolumeToMIDI();
+        Debug.Log("about to add volume "+ vol);
+        _oscMessage.values.Add(vol);
+        osc.Send(_oscMessage);
+    }
+
+    private int CurrentVolumeToMIDI()
+    {
+        var volumePercent = Math.Floor(currentVolume * 100);
+        Debug.Log("volumePercent " + volumePercent);
+        var m = Math.Round(volumePercent * 127 * 0.01);
+        Debug.Log("m " + m);
+        Debug.Log("m int " + (int) m);
+        return (int) m;
+    }
+    
+    private void SetCurrentScale()
+    {
+        _currentScaleName = _currentScaleNote.note_name + " " + _currentScaleMode.ToString();
+        UIManager.Instance.UpDateInfoTexts(InfoText.CurrentKey, _currentScaleName);
     }
 
     public float currentFrequency()
@@ -99,6 +141,9 @@ public class NoteManager : Singleton<NoteManager>
     
     private void MakeScale(int startMidiNumber, ScalesAndModes scalesAndModes)
     {
+        _currentScaleMode = scalesAndModes;
+        GetMidiNoteFromNumber(startMidiNumber);
+        
         switch (scalesAndModes)
         {
             case ScalesAndModes.Aeolian:
@@ -141,6 +186,7 @@ public class NoteManager : Singleton<NoteManager>
             ++stepCounter;
         }
         GetMidiNotesFromNumbers(scaleMidiNumbers);
+        SetCurrentScale();
     }
     
     public void SetVolume(float volume)

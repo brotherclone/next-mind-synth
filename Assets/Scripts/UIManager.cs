@@ -62,6 +62,12 @@ public class UIManager : Singleton<UIManager>
             case InfoText.CurrentKey:
                 currentKeyText.text =  "Key: " + message;
                 break;
+            case InfoText.CurrentDrones:
+                currentDronesText.text = "Drones: " + message;
+                break;
+            case InfoText.Triggering:
+                triggeringText.text = "Triggering: " + message;
+                break;
             default:
                 alertText.text = "";
                 break;

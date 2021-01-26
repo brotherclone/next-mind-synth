@@ -1,10 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NextMind;
 using NextMind.NeuroTags;
 
-public class VolumeTagController : MonoBehaviour
+public class DroneTagController : MonoBehaviour
 {
     [SerializeField]
     public NeuroTag neuroTag;
@@ -54,8 +54,9 @@ public class VolumeTagController : MonoBehaviour
     private void OnTagTrigger()
     {
         Debug.Log(tagName+ " triggered");
-        //ToDo: Just temp single volume setting.
-        NoteManager.Instance.SetVolume(0.2f);
+        DroneManager.Instance.isToggled = true;
+        DroneManager.Instance.isPlaying = true;
+        UIManager.Instance.UpDateInfoTexts(InfoText.CurrentDrones, "On");
     }
 
 
