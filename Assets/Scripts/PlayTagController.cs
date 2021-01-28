@@ -50,12 +50,11 @@ public class PlayTagController : MonoBehaviour
 
     private void OnDeactivated()
     {
-        Debug.Log(playTagName+ " deactivated");
+        //Debug.Log(playTagName+ " deactivated");
     }
     
     private void OnTagTrigger()
     {
-        Debug.Log(playTagName+ " triggered");
         NoteManager.Instance.setCurrentNote(position);
     }
 
@@ -64,10 +63,10 @@ public class PlayTagController : MonoBehaviour
     {
   
         HandleConfidenceUpdate();
-        if (!neuroTag.IsActive)
-        {
-            Debug.Log("something is wrong with "+playTagName);
-        }
+        // if (!neuroTag.IsActive)
+        // {
+        //     Debug.Log("something is wrong with "+playTagName);
+        // }
         
     }
     private void HandleConfidenceUpdate()

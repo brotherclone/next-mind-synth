@@ -29,15 +29,15 @@ public class NoteManager : Singleton<NoteManager>
     Locrian	    S T T S T T T
     */
     
-    private readonly int[] _majorSteps = new[] {0, 2, 2, 1, 2, 2, 2, 1};
-    private readonly int[] _minorSteps = new[] {0, 2, 1, 2, 2, 1, 2, 2};
-    private readonly int[] _ionianSteps = new[] {0, 2, 2, 1, 2, 2, 2, 1};
-    private readonly int[] _dorianSteps = new[] {0, 2, 1, 2, 2, 2, 1, 2};
-    private readonly int[] _phrygianSteps = new[] {0, 1, 2, 2, 2, 1, 2, 2};
-    private readonly int[] _lydianSteps = new[] {0, 2, 2, 2, 1, 2, 2, 1};
-    private readonly int[] _mixolydianSteps = new[] {0, 2, 2, 1, 2, 2, 1, 2};
-    private readonly int[] _aeolianSteps = new[] {0, 2, 1, 2, 2, 1, 2, 2};
-    private readonly int[] _locrianSteps = new[] {0, 1, 2, 2, 1, 2, 2, 2};
+    private readonly int[] _majorSteps = new[] {2, 2, 1, 2, 2, 2, 1};
+    private readonly int[] _minorSteps = new[] {2, 1, 2, 2, 1, 2, 2};
+    private readonly int[] _ionianSteps = new[] {2, 2, 1, 2, 2, 2, 1};
+    private readonly int[] _dorianSteps = new[] {2, 1, 2, 2, 2, 1, 2};
+    private readonly int[] _phrygianSteps = new[] {1, 2, 2, 2, 1, 2, 2};
+    private readonly int[] _lydianSteps = new[] {2, 2, 2, 1, 2, 2, 1};
+    private readonly int[] _mixolydianSteps = new[] {2, 2, 1, 2, 2, 1, 2};
+    private readonly int[] _aeolianSteps = new[] {2, 1, 2, 2, 1, 2, 2};
+    private readonly int[] _locrianSteps = new[] {1, 2, 2, 1, 2, 2, 2};
     private int[] _currentInterval = new int[8];
 
     public Note currentNote;
@@ -92,7 +92,7 @@ public class NoteManager : Singleton<NoteManager>
     
     public void setCurrentNote(int position)
     {
-        if (position < currentScale.Count)
+        if (position <= currentScale.Count)
         {
             currentNote = currentScale[position];
             UIManager.Instance.UpDateInfoTexts(InfoText.Triggering, currentNote.note_name);
@@ -103,12 +103,10 @@ public class NoteManager : Singleton<NoteManager>
 
     private void TransmitOSC(Note note)
     {
-        Debug.Log("Transmit Called");
         var _oscMessage = new OscMessage();
         _oscMessage.address = "/NextMindSynth/Cantor";
         _oscMessage.values.Add(note.midi_number);
         var vol = CurrentVolumeToMIDI();
-        Debug.Log("about to add volume "+ vol);
         _oscMessage.values.Add(vol);
         osc.Send(_oscMessage);
     }
@@ -116,10 +114,7 @@ public class NoteManager : Singleton<NoteManager>
     private int CurrentVolumeToMIDI()
     {
         var volumePercent = Math.Floor(currentVolume * 100);
-        Debug.Log("volumePercent " + volumePercent);
         var m = Math.Round(volumePercent * 127 * 0.01);
-        Debug.Log("m " + m);
-        Debug.Log("m int " + (int) m);
         return (int) m;
     }
     
@@ -178,12 +173,17 @@ public class NoteManager : Singleton<NoteManager>
         var stepCounter = 0;
         var midiNoteCounter = startMidiNumber;
         var scaleMidiNumbers = new List<int>();
+        scaleMidiNumbers.Add(midiNoteCounter);
         while (stepCounter < _currentInterval.Length)
         {
-            scaleMidiNumbers.Add(midiNoteCounter);
             if (midiNoteCounter + _currentInterval[stepCounter] >= 127) continue;
             midiNoteCounter += _currentInterval[stepCounter];
+            scaleMidiNumbers.Add(midiNoteCounter);
             ++stepCounter;
+            foreach (var num in scaleMidiNumbers)
+            {
+                Debug.Log("checking number sequence -> " + num);
+            }
         }
         GetMidiNotesFromNumbers(scaleMidiNumbers);
         SetCurrentScale();

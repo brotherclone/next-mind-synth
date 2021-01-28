@@ -9,11 +9,8 @@ using TMPro.EditorUtilities;
 public class UIManager : Singleton<UIManager>
 {
     
-    public TMP_Text confidenceText;
     public TMP_Text triggeringText;
-    public TMP_Text midiConnectionText;
     public TMP_Text currentKeyText;
-    public TMP_Text currentModeText;
     public TMP_Text currentDronesText;
     public TMP_Text currentVolumeText;
     public TMP_Text instructionsText;
@@ -23,11 +20,8 @@ public class UIManager : Singleton<UIManager>
     
     private void InitializeUI()
     {
-        _uiTexts.Add(confidenceText);
         _uiTexts.Add(triggeringText);
-        _uiTexts.Add(midiConnectionText);
         _uiTexts.Add(currentKeyText);
-        _uiTexts.Add(currentModeText);
         _uiTexts.Add(currentDronesText);
         _uiTexts.Add(currentVolumeText);
         _uiTexts.Add(instructionsText);
@@ -68,6 +62,12 @@ public class UIManager : Singleton<UIManager>
             case InfoText.Triggering:
                 triggeringText.text = "Triggering: " + message;
                 break;
+            case InfoText.Instructions:
+                instructionsText.text = "Concentrate on a tag to trigger a note.";
+                break;
+            case InfoText.Alerts:
+                alertText.text = " Initializing";
+                break;
             default:
                 alertText.text = "";
                 break;
@@ -85,11 +85,8 @@ public class UIManager : Singleton<UIManager>
 
 public enum InfoText
 {
-    Confidence,
     Triggering,
-    MIDIConnection,
     CurrentKey,
-    CurrentMode,
     CurrentDrones,
     Volume,
     Instructions,
