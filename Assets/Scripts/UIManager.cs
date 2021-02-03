@@ -4,41 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using TMPro.EditorUtilities;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
-    public GameObject dronePanel;
-    public GameObject pitchPanel;
-    public GameObject playPanel;
-    public GameObject volumePanel;
-
-    public TMP_Text confidenceText;
+    
     public TMP_Text triggeringText;
-    public TMP_Text midiConnectionText;
     public TMP_Text currentKeyText;
-    public TMP_Text currentModeText;
     public TMP_Text currentDronesText;
     public TMP_Text currentVolumeText;
     public TMP_Text instructionsText;
     public TMP_Text alertText;
     
-    private List<GameObject> _panels = new List<GameObject>();
     private List<TMP_Text> _uiTexts = new List<TMP_Text>();
     
-    private Animator _currentAnimator;
- 
     private void InitializeUI()
     {
-        _panels.Add(dronePanel);
-        _panels.Add(pitchPanel);
-        _panels.Add(playPanel);
-        _panels.Add(volumePanel);
-        
-        _uiTexts.Add(confidenceText);
         _uiTexts.Add(triggeringText);
-        _uiTexts.Add(midiConnectionText);
         _uiTexts.Add(currentKeyText);
-        _uiTexts.Add(currentModeText);
         _uiTexts.Add(currentDronesText);
         _uiTexts.Add(currentVolumeText);
         _uiTexts.Add(instructionsText);
@@ -46,16 +29,47 @@ public class UIManager : MonoBehaviour
         
         Debug.Log("UI Loaded");
     }
+    
 
-    public void TogglePanel(PanelName panelName, TagUIInteraction _tagUIInteraction)
+    private void InitializeInfoTexts()
     {
-        switch (panelName)
+        foreach (var text in _uiTexts)
         {
-            case PanelName.DronePanel:
-                _currentAnimator = dronePanel.GetComponent<Animator>();
-                var status = _currentAnimator.GetBool("isDisplayed");
-                _currentAnimator.SetBool("isDisplayed", !status);
-                _tagUIInteraction.EnableDisableTag(true);
+            text.text = "";
+        }
+    }
+    
+    public void UpDateInfoTexts(InfoText infoText, string message)
+    {
+        switch (infoText)
+        {
+            case InfoText.Volume:
+                if (message == "!MUTE!")
+                {
+                    currentVolumeText.text = "Mute";
+                }
+                else
+                { 
+                    currentVolumeText.text = "Volume: " + message;
+                }
+                break;
+            case InfoText.CurrentKey:
+                currentKeyText.text =  "Key: " + message;
+                break;
+            case InfoText.CurrentDrones:
+                currentDronesText.text = "Drones: " + message;
+                break;
+            case InfoText.Triggering:
+                triggeringText.text = "Triggering: " + message;
+                break;
+            case InfoText.Instructions:
+                instructionsText.text = "Concentrate on a tag to trigger a note.";
+                break;
+            case InfoText.Alerts:
+                alertText.text = " Initializing";
+                break;
+            default:
+                alertText.text = "";
                 break;
         }
     }
@@ -63,30 +77,18 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         InitializeUI();
-    }
-
-    private void Update()
-    {
-        
+        InitializeInfoTexts();
     }
     
 }
 
-public enum UIActions{
-    Open,
-    Close
-}
 
-public enum UIType
+public enum InfoText
 {
-    Panel
-}
-
-public enum PanelName
-{
-    None,
-    DronePanel,
-    PitchPanel,
-    VolumePanel,
-    PlayPanel
+    Triggering,
+    CurrentKey,
+    CurrentDrones,
+    Volume,
+    Instructions,
+    Alerts
 }

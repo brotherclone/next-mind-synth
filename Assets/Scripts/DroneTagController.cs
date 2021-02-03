@@ -4,24 +4,22 @@ using UnityEngine;
 using NextMind;
 using NextMind.NeuroTags;
 
-public class PlayTagController : MonoBehaviour
+public class DroneTagController : MonoBehaviour
 {
     [SerializeField]
     public NeuroTag neuroTag;
 
     [SerializeField] 
-    public string playTagName;
-    
-    public int position;
-    
+    public string tagName;
+
     private float _currentConfidenceValue = 0;
 
     private float _targetConfidenceValue = 0;
 
-    private bool _interpolateConfidenceValue = true;
+    private const bool _interpolateConfidenceValue = true;
 
-    private float confidenceSmoothingSpeed = 5;
-    
+    private const float confidenceSmoothingSpeed = 5;
+
     private void Awake()
     {
         if (neuroTag == null)
@@ -45,17 +43,20 @@ public class PlayTagController : MonoBehaviour
 
     private void OnActivated()
     {
-        Debug.Log(playTagName+ " activated");
+        Debug.Log(tagName+ " activated");
     }
 
     private void OnDeactivated()
     {
-        //Debug.Log(playTagName+ " deactivated");
+        Debug.Log(tagName+ " deactivated");
     }
     
     private void OnTagTrigger()
     {
-        NoteManager.Instance.setCurrentNote(position);
+        Debug.Log(tagName+ " triggered");
+        DroneManager.Instance.isToggled = true;
+        DroneManager.Instance.isPlaying = true;
+        UIManager.Instance.UpDateInfoTexts(InfoText.CurrentDrones, "On");
     }
 
 
@@ -63,10 +64,10 @@ public class PlayTagController : MonoBehaviour
     {
   
         HandleConfidenceUpdate();
-        // if (!neuroTag.IsActive)
-        // {
-        //     Debug.Log("something is wrong with "+playTagName);
-        // }
+        if (!neuroTag.IsActive)
+        {
+            Debug.Log("something is wrong with "+tagName);
+        }
         
     }
     private void HandleConfidenceUpdate()
