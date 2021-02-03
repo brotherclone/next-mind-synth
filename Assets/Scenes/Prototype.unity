@@ -298,7 +298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neuroTag: {fileID: 38542812}
   playTagName: Fourth
-  position: 4
+  position: 3
 --- !u!114 &77764960 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3145989506368248515, guid: 57d2a2b04deb540c984b508e950812e3,
@@ -488,7 +488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neuroTag: {fileID: 214554536}
   playTagName: Second
-  position: 2
+  position: 1
 --- !u!1001 &226376142
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1072,7 +1072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neuroTag: {fileID: 769748485}
   playTagName: Seventh
-  position: 7
+  position: 6
 --- !u!1 &793239155
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,7 +1560,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neuroTag: {fileID: 844665165}
   playTagName: Fifth
-  position: 5
+  position: 4
 --- !u!1 &911379619 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6194260608835990875, guid: a4fe664e7c46384419a98df0f18d34d9,
@@ -1619,7 +1619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neuroTag: {fileID: 911379621}
   playTagName: Sixth
-  position: 6
+  position: 5
 --- !u!1 &987405141
 GameObject:
   m_ObjectHideFlags: 0
@@ -2872,7 +2872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neuroTag: {fileID: 1525664418}
   playTagName: First
-  position: 1
+  position: 0
 --- !u!1 &1606221964
 GameObject:
   m_ObjectHideFlags: 0
@@ -3030,7 +3030,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: 100
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -3153,7 +3153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neuroTag: {fileID: 1819180372}
   playTagName: Eigth
-  position: 8
+  position: 7
 --- !u!1 &1828098828 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6194260608835990875, guid: a4fe664e7c46384419a98df0f18d34d9,
@@ -3270,7 +3270,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: 0
+  m_Spacing: 100
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -4137,7 +4137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neuroTag: {fileID: 2119884100}
   playTagName: Third
-  position: 3
+  position: 2
 --- !u!1001 &3145989506441479075
 PrefabInstance:
   m_ObjectHideFlags: 0
