@@ -8,6 +8,7 @@ using TMPro.EditorUtilities;
 
 public class UIManager : Singleton<UIManager>
 {
+    protected UIManager() {}
     
     public TMP_Text triggeringText;
     public TMP_Text currentKeyText;
