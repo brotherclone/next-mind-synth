@@ -20,10 +20,12 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
     public string calibrationTextMessage;
 
     public int currentCalibrationTagIndex;
-
+    
     [SerializeField]
     private List<GameObject> calibrationTagCounters;
-    
+
+    [SerializeField]
+    private List<float> calibrationConfidence;
     
     private void Start()
     {
@@ -32,14 +34,34 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
 
     public void AdvanceTagCounter()
     {
-        ++currentCalibrationTagIndex;
+        if (currentCalibrationTagIndex < 0)
+        {
+            currentCalibrationTagIndex = 0;
+        }
+        else
+        {
+            if (currentCalibrationTagIndex + 1 < calibrationConfidence.Count)
+            {
+                ++currentCalibrationTagIndex;
+            } 
+        }
+    }
+
+    public void TagTriggered()
+    {
+        calibrationConfidence[currentCalibrationTagIndex] = 1.0f;
+    }
+
+    public void UpdateConfidence(float currentConfidence)
+    {
+        calibrationConfidence[currentCalibrationTagIndex] = currentConfidence;
     }
 
     public void TagCounterAnimate()
     {
         var currentSpriteObj = calibrationTagCounters[currentCalibrationTagIndex];
         var currentSprite = currentSpriteObj.GetComponent<SpriteRenderer>();
-        currentSprite.color =  new Color (0, 1, 0, 1); 
+        currentSprite.color =  new Color (0, 1, 0, calibrationConfidence[currentCalibrationTagIndex]); 
     }
     
     private void SetUpCounters()
@@ -48,7 +70,8 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
         foreach (var t in calibrationTagCounters)
         {
             var currentSprite = t.GetComponent<SpriteRenderer>();
-            currentSprite.color =  new Color (1, 1, 1, 1); 
+            currentSprite.color =  new Color (1, 1, 1, 0.25f);
+            calibrationConfidence.Add(0.0f);
         }
     }
     
@@ -66,13 +89,11 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
         switch (calibrationUIState)
         {
             case CalibrationUIState.Calibration:
-                Debug.Log("calibration");
                 calibrationButtonGroup.SetActive(true);
                 postCalibrationButtonGroup.SetActive(false);
                 calibrationText.text = "Concentrate on each tag to calibrate";
                 break;
             case CalibrationUIState.PreCalibration:
-                Debug.Log("pre");
                 SetUpButtons();
                 SetUpCounters();
                 calibrationButtonGroup.SetActive(false);
@@ -82,16 +103,14 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
             case CalibrationUIState.PostCalibrationFailure:
                 calibrationButtonGroup.SetActive(false);
                 postCalibrationButtonGroup.SetActive(true);
-                Debug.Log("failed");
                 calibrationText.text = calibrationTextMessage;
                 break;
             case CalibrationUIState.PostCalibrationSuccess:
                 calibrationButtonGroup.SetActive(false);
                 postCalibrationButtonGroup.SetActive(false);
-                Debug.Log("success");
                 calibrationText.text = calibrationTextMessage;
                 GameManager.Instance.UnLoadScene("Calibration");
-                GameManager.Instance.LoadScene("Synth");
+                GameManager.Instance.LoadScene("NextMindSynth");
                 break;
             default:
                 calibrationButtonGroup.SetActive(false);
@@ -108,24 +127,21 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
 
     public void StartOverButtonAction()
     {
-        Debug.Log("StartOverButtonAction");
         ToggleState(CalibrationUIState.Calibration);
     }
 
     public void SkipButtonAction()
     {
-        Debug.Log("SkipButtonAction");
         ToggleState(CalibrationUIState.PostCalibrationSuccess);
     }
 
     public void GetHelpButtonAction()
     {
-        Debug.Log("GetHelpButtonAction");
+        Application.OpenURL("https://www.next-mind.com/faq/");
     }
 
     public void ProceedButtonAction()
     {
-        Debug.Log("ProceedButtonAction"); 
         ToggleState(CalibrationUIState.PostCalibrationSuccess);
     }
     
