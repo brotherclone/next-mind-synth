@@ -55,7 +55,7 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(gameObject);
         _loadOperations = new List<AsyncOperation>();
-        LoadScene("Calibration");
+        LoadScene("Intro");
         InstantiateSystemPrefabs();
     }
 

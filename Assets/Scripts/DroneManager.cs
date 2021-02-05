@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DroneManager : Singleton<DroneManager>
 {
+    protected DroneManager() {}
+    
     private AudioSource m_DroneAudioSource;
 
     public bool isPlaying;
