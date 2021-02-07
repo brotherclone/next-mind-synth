@@ -95,7 +95,6 @@ public class NoteManager : Singleton<NoteManager>
         if (position <= currentScale.Count)
         {
             currentNote = currentScale[position];
-            UIManager.Instance.UpDateInfoTexts(InfoText.Triggering, currentNote.note_name);
             TransmitOSC(currentNote);
         }
     }
@@ -121,7 +120,6 @@ public class NoteManager : Singleton<NoteManager>
     private void SetCurrentScale()
     {
         _currentScaleName = _currentScaleNote.note_name + " " + _currentScaleMode.ToString();
-        UIManager.Instance.UpDateInfoTexts(InfoText.CurrentKey, _currentScaleName);
     }
 
     public float currentFrequency()
@@ -199,7 +197,6 @@ public class NoteManager : Singleton<NoteManager>
         {
             currentVolume = volume;
             var volumePercent = Math.Floor(volume * 100);
-            UIManager.Instance.UpDateInfoTexts(InfoText.Volume, volumePercent.ToString(CultureInfo.CurrentCulture)+"%");
         }
     }
 
@@ -210,7 +207,6 @@ public class NoteManager : Singleton<NoteManager>
             _previousVolume = currentVolume;
             SetVolume(0f);
             _isMuted = true;
-            UIManager.Instance.UpDateInfoTexts(InfoText.Volume, "!MUTE!");
         }
         else
         {

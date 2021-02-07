@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using NextMind;
 using NextMind.NeuroTags;
 
@@ -21,6 +22,9 @@ public class PlayTagController : MonoBehaviour
     private bool _interpolateConfidenceValue = true;
 
     private float confidenceSmoothingSpeed = 5;
+    
+    [SerializeField] 
+    private Text noteText;
     
     private void Awake()
     {

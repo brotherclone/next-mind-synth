@@ -56,7 +56,6 @@ public class DroneTagController : MonoBehaviour
         Debug.Log(tagName+ " triggered");
         DroneManager.Instance.isToggled = true;
         DroneManager.Instance.isPlaying = true;
-        UIManager.Instance.UpDateInfoTexts(InfoText.CurrentDrones, "On");
     }
 
 
