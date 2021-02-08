@@ -3,13 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Oscilation : MonoBehaviour
+public class Oscillation : MonoBehaviour
 {
     private readonly float sampleRate = 44100;
     private float _frequency = 1f;
     private float _amplitude = 0.1f;
-    public SignalType signalType = SignalType.Sine;
+    public SignalType signalType;
     private int _timeIndex = 0;
+
+    private void Start()
+    {
+        SwitchSignalToTriangle();
+    }
 
     void OnAudioFilterRead(float[] data, int channels)
     {
@@ -31,7 +36,26 @@ public class Oscilation : MonoBehaviour
         }
     }
 
+    public void SwitchSignalToTriangle()
+    {
+        signalType = SignalType.Triangle;
+    }
 
+    public void SwitchSignalToSquare()
+    {
+        signalType = SignalType.Square;
+    }
+    
+    public void SwitchSignalToSawTooth()
+    {
+        signalType = SignalType.Sawtooth;
+    }
+    
+    public void SwitchSignalToSine()
+    {
+        signalType = SignalType.Sine;
+    }
+    
     public float SignalGeneration(int timeIndex, float frequency, float sampleRate, float amplitude)
     {
         float signalValue = 0f;

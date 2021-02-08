@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using NextMind;
+﻿using UnityEngine;
 using NextMind.NeuroTags;
 
 public class DroneTagController : MonoBehaviour
@@ -54,8 +51,7 @@ public class DroneTagController : MonoBehaviour
     private void OnTagTrigger()
     {
         Debug.Log(tagName+ " triggered");
-        DroneManager.Instance.isToggled = true;
-        DroneManager.Instance.isPlaying = true;
+        DroneManager.Instance.Toggle();
     }
 
 

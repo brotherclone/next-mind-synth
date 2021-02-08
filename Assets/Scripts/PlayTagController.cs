@@ -23,14 +23,11 @@ public class PlayTagController : MonoBehaviour
 
     private float confidenceSmoothingSpeed = 5;
     
-    [SerializeField] 
-    private Text noteText;
-    
     private void Awake()
     {
         if (neuroTag == null)
         {
-            neuroTag = GetComponentInParent<NeuroTag>();
+            neuroTag = GetComponentInChildren<NeuroTag>();
             SetUpListeners();
         }else
         {
@@ -49,7 +46,7 @@ public class PlayTagController : MonoBehaviour
 
     private void OnActivated()
     {
-        Debug.Log(playTagName+ " activated");
+        //Debug.Log(playTagName+ " activated");
     }
 
     private void OnDeactivated()
@@ -59,19 +56,13 @@ public class PlayTagController : MonoBehaviour
     
     private void OnTagTrigger()
     {
+        Debug.Log("trigger");
         NoteManager.Instance.setCurrentNote(position);
     }
-
-
+    
     private void Update()
     {
-  
         HandleConfidenceUpdate();
-        // if (!neuroTag.IsActive)
-        // {
-        //     Debug.Log("something is wrong with "+playTagName);
-        // }
-        
     }
     private void HandleConfidenceUpdate()
     {
@@ -83,7 +74,11 @@ public class PlayTagController : MonoBehaviour
         {
             _currentConfidenceValue = _targetConfidenceValue;
         }
-        
+
+        if (_currentConfidenceValue > 0.075f)
+        {
+            FocusParticleManager.Instance.UpdateFocusParticles(neuroTag.transform.position);
+        }
     }
     
     private void OnConfidenceUpdated(float value)

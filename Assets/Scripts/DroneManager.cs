@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DroneManager : Singleton<DroneManager>
 {
@@ -33,5 +30,11 @@ public class DroneManager : Singleton<DroneManager>
             m_DroneAudioSource.Stop();
             isToggled = false;
         }
-    }   
+    }
+
+    public void Toggle()
+    {
+        isToggled = true;
+    }
+
 }
