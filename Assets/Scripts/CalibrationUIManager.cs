@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using NextMind.Calibration;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
-using TMPro;
+
 
 public class CalibrationUIManager : Singleton<CalibrationUIManager>
 {
@@ -15,7 +14,7 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
     
     public GameObject postCalibrationButtonGroup;
     
-    public TMP_Text calibrationText;
+    public Text calibrationText;
 
     public string calibrationTextMessage;
 
