@@ -69,11 +69,13 @@ public class NoteManager : Singleton<NoteManager>
     public void TurnOnOSC()
     {
         isTransmittingOSC = true;
+        UIManager.Instance.UpdateOSCButtons(true);
     }
 
     public void TurnOffOSC()
     {
         isTransmittingOSC = false;
+        UIManager.Instance.UpdateOSCButtons(false);
     }
 
     private void GetMidiNotesFromNumbers(IReadOnlyList<int> noteNumbers)

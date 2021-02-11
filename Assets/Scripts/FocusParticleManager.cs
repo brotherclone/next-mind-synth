@@ -17,8 +17,7 @@ public class FocusParticleManager : Singleton<FocusParticleManager>
 
     public void UpdateFocusParticles(Vector2 vector2)
     {
-
-        Vector3 v3 = vector2;
+        var v3 = new Vector3(vector2.x, vector2.y, 10.0f);
         _focusParticlesTargetPosition = v3;
     }
 

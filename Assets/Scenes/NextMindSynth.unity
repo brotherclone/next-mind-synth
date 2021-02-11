@@ -913,6 +913,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7797013589694040429, guid: a09a7cfcfbf9b448f8bb09f5724efbe1,
         type: 3}
+      propertyPath: oscOn
+      value: 
+      objectReference: {fileID: 850697771}
+    - target: {fileID: 7797013589694040429, guid: a09a7cfcfbf9b448f8bb09f5724efbe1,
+        type: 3}
+      propertyPath: oscOff
+      value: 
+      objectReference: {fileID: 2010150283}
+    - target: {fileID: 7797013589694040429, guid: a09a7cfcfbf9b448f8bb09f5724efbe1,
+        type: 3}
       propertyPath: alertText
       value: 
       objectReference: {fileID: 0}
@@ -933,9 +943,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7797013589694040429, guid: a09a7cfcfbf9b448f8bb09f5724efbe1,
         type: 3}
+      propertyPath: waveSquare
+      value: 
+      objectReference: {fileID: 862833720}
+    - target: {fileID: 7797013589694040429, guid: a09a7cfcfbf9b448f8bb09f5724efbe1,
+        type: 3}
       propertyPath: volumePanel
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7797013589694040429, guid: a09a7cfcfbf9b448f8bb09f5724efbe1,
+        type: 3}
+      propertyPath: waveSawtooth
+      value: 
+      objectReference: {fileID: 2128528230}
+    - target: {fileID: 7797013589694040429, guid: a09a7cfcfbf9b448f8bb09f5724efbe1,
+        type: 3}
+      propertyPath: waveTriangle
+      value: 
+      objectReference: {fileID: 95423373}
     - target: {fileID: 7797013589694040429, guid: a09a7cfcfbf9b448f8bb09f5724efbe1,
         type: 3}
       propertyPath: confidenceText
