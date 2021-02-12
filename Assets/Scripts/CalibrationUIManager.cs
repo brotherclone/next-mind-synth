@@ -73,6 +73,11 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
             calibrationConfidence.Add(0.0f);
         }
     }
+
+    public void DeviceFound()
+    {
+        ToggleState(CalibrationUIState.Calibration);
+    }
     
     private void SetUpButtons()
     {
@@ -87,17 +92,18 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
     {
         switch (calibrationUIState)
         {
-            case CalibrationUIState.Calibration:
-                calibrationButtonGroup.SetActive(true);
-                postCalibrationButtonGroup.SetActive(false);
-                calibrationText.text = "Concentrate on each tag to calibrate";
-                break;
+  
             case CalibrationUIState.PreCalibration:
                 SetUpButtons();
                 SetUpCounters();
                 calibrationButtonGroup.SetActive(false);
                 postCalibrationButtonGroup.SetActive(false);
-                calibrationText.text = "Beginning Calibration";
+                calibrationText.text = "Looking for NextMind";
+                break;
+            case CalibrationUIState.Calibration:
+                calibrationButtonGroup.SetActive(true);
+                postCalibrationButtonGroup.SetActive(false);
+                calibrationText.text = "Concentrate on each tag to calibrate";
                 break;
             case CalibrationUIState.PostCalibrationFailure:
                 calibrationButtonGroup.SetActive(false);

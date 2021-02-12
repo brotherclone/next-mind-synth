@@ -291,6 +291,11 @@ PrefabInstance:
       objectReference: {fileID: 1412954524}
     - target: {fileID: 3476073817362170659, guid: 7879062f3a9044099bbdd60e54fd2add,
         type: 3}
+      propertyPath: calibrationConfidence.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3476073817362170659, guid: 7879062f3a9044099bbdd60e54fd2add,
+        type: 3}
       propertyPath: calibrationTagCounters.Array.size
       value: 12
       objectReference: {fileID: 0}
@@ -1573,7 +1578,18 @@ MonoBehaviour:
       m_Calls: []
   onDeviceAvailable:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 23614929}
+        m_MethodName: DeviceFound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDeviceUnavailable:
     m_PersistentCalls:
       m_Calls: []
