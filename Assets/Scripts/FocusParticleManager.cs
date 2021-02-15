@@ -13,6 +13,7 @@ public class FocusParticleManager : Singleton<FocusParticleManager>
     {
         _focusParticlesPosition = particles.transform.position;
         _focusParticlesTargetPosition = _focusParticlesPosition;
+        particles.SetActive(false);
     }
 
     public void UpdateFocusParticles(Vector2 vector2)

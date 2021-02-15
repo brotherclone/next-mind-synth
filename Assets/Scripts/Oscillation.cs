@@ -24,6 +24,11 @@ public class Oscillation : MonoBehaviour
             _amplitude = NoteManager.Instance.currentVolumeLevel();
             _frequency = NoteManager.Instance.currentFrequency();
         }
+        else
+        {
+            _amplitude = 0.3f;
+            _frequency = 342f;
+        }
         
         for (int i = 0; i < data.Length; i += channels)
         {

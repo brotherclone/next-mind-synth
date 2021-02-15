@@ -22,9 +22,8 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
     
     [SerializeField]
     private List<GameObject> calibrationTagCounters;
-
-    [SerializeField]
-    private List<float> calibrationConfidence;
+    
+    private List<float> _calibrationConfidence;
     
     private void Start()
     {
@@ -39,7 +38,7 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
         }
         else
         {
-            if (currentCalibrationTagIndex + 1 < calibrationConfidence.Count)
+            if (currentCalibrationTagIndex + 1 < _calibrationConfidence.Count)
             {
                 ++currentCalibrationTagIndex;
             } 
@@ -48,19 +47,19 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
 
     public void TagTriggered()
     {
-        calibrationConfidence[currentCalibrationTagIndex] = 1.0f;
+        _calibrationConfidence[currentCalibrationTagIndex] = 1.0f;
     }
 
     public void UpdateConfidence(float currentConfidence)
     {
-        calibrationConfidence[currentCalibrationTagIndex] = currentConfidence;
+        _calibrationConfidence[currentCalibrationTagIndex] = currentConfidence;
     }
 
     public void TagCounterAnimate()
     {
         var currentSpriteObj = calibrationTagCounters[currentCalibrationTagIndex];
         var currentSprite = currentSpriteObj.GetComponent<SpriteRenderer>();
-        currentSprite.color =  new Color (0, 1, 0, calibrationConfidence[currentCalibrationTagIndex]); 
+        currentSprite.color =  new Color (0, 1, 0, _calibrationConfidence[currentCalibrationTagIndex]); 
     }
     
     private void SetUpCounters()
@@ -70,7 +69,7 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
         {
             var currentSprite = t.GetComponent<SpriteRenderer>();
             currentSprite.color =  new Color (1, 1, 1, 0.25f);
-            calibrationConfidence.Add(0.0f);
+            _calibrationConfidence.Add(0.0f);
         }
     }
 
@@ -96,7 +95,7 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
             case CalibrationUIState.PreCalibration:
                 SetUpButtons();
                 SetUpCounters();
-                calibrationButtonGroup.SetActive(false);
+                calibrationButtonGroup.SetActive(true);
                 postCalibrationButtonGroup.SetActive(false);
                 calibrationText.text = "Looking for NextMind";
                 break;

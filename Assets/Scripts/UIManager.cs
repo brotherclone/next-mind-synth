@@ -86,7 +86,7 @@ public class UIManager : Singleton<UIManager>
             button.colors = colors;
         }
     }
-
+    
     private void ToggleButtonText(Button button, bool isOn)
     {
         var text = button.GetComponentInChildren<Text>();
