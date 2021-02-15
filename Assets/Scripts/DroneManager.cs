@@ -7,34 +7,25 @@ public class DroneManager : Singleton<DroneManager>
     private AudioSource m_DroneAudioSource;
 
     public bool isPlaying;
-
-    public bool isToggled;
     
     private void Start()
     {
         m_DroneAudioSource = GetComponent<AudioSource>();
         isPlaying = false;
-        isToggled = false;
     }
-
-    private void Update()
-    {
-        if (isPlaying == true && isToggled == true)
-        {
-            m_DroneAudioSource.Play();
-            isToggled = false;
-        }
-
-        if (isPlaying == false && isToggled == true)
-        {
-            m_DroneAudioSource.Stop();
-            isToggled = false;
-        }
-    }
+    
 
     public void Toggle()
     {
-        isToggled = true;
+        isPlaying = !isPlaying;
+        if (isPlaying == false)
+        {
+            m_DroneAudioSource.Stop(); 
+        }
+        else
+        {
+            m_DroneAudioSource.Play();  
+        }
     }
 
 }

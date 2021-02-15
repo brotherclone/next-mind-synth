@@ -175,3 +175,5 @@ InitTestScene*.unity
 
 # Nested
 .DS_Store
+# Builds
+Builds/**/*

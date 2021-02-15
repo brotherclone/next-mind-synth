@@ -15,9 +15,7 @@ public class VolumeTagController : MonoBehaviour
     private float _currentConfidenceValue = 0;
 
     private float _targetConfidenceValue = 0;
-
-    private const bool _interpolateConfidenceValue = true;
-
+    
     private const float confidenceSmoothingSpeed = 5;
 
     private void Awake()
@@ -55,7 +53,7 @@ public class VolumeTagController : MonoBehaviour
     {
         Debug.Log(tagName+ " triggered");
         //ToDo: Just temp single volume setting.
-        NoteManager.Instance.SetVolume(0.2f);
+        NoteManager.Instance.SetVolume(0.5f);
     }
 
 
@@ -65,21 +63,13 @@ public class VolumeTagController : MonoBehaviour
         HandleConfidenceUpdate();
         if (!neuroTag.IsActive)
         {
-            Debug.Log("something is wrong with "+tagName);
+            //Debug.Log("something is wrong with "+tagName);
         }
         
     }
     private void HandleConfidenceUpdate()
     {
-        if (_interpolateConfidenceValue)
-        {
-            _currentConfidenceValue = Mathf.Lerp(_currentConfidenceValue, _targetConfidenceValue, confidenceSmoothingSpeed * Time.deltaTime);
-        }
-        else
-        {
-            _currentConfidenceValue = _targetConfidenceValue;
-        }
-        
+        _currentConfidenceValue = Mathf.Lerp(_currentConfidenceValue, _targetConfidenceValue, confidenceSmoothingSpeed * Time.deltaTime);
     }
     
     private void OnConfidenceUpdated(float value)

@@ -13,7 +13,8 @@ public class Oscillation : MonoBehaviour
 
     private void Start()
     {
-        SwitchSignalToTriangle();
+        signalType = SignalType.Triangle;
+        UIManager.Instance.UpdateWaveButtons(SignalType.Triangle, true);
     }
 
     void OnAudioFilterRead(float[] data, int channels)
@@ -22,6 +23,11 @@ public class Oscillation : MonoBehaviour
         {
             _amplitude = NoteManager.Instance.currentVolumeLevel();
             _frequency = NoteManager.Instance.currentFrequency();
+        }
+        else
+        {
+            _amplitude = 0.3f;
+            _frequency = 342f;
         }
         
         for (int i = 0; i < data.Length; i += channels)
@@ -39,21 +45,25 @@ public class Oscillation : MonoBehaviour
     public void SwitchSignalToTriangle()
     {
         signalType = SignalType.Triangle;
+        UIManager.Instance.UpdateWaveButtons(SignalType.Triangle, false);
     }
 
     public void SwitchSignalToSquare()
     {
         signalType = SignalType.Square;
+        UIManager.Instance.UpdateWaveButtons(SignalType.Square, false);
     }
     
     public void SwitchSignalToSawTooth()
     {
         signalType = SignalType.Sawtooth;
+        UIManager.Instance.UpdateWaveButtons(SignalType.Sawtooth, false);
     }
     
     public void SwitchSignalToSine()
     {
         signalType = SignalType.Sine;
+        UIManager.Instance.UpdateWaveButtons(SignalType.Sine, false);
     }
     
     public float SignalGeneration(int timeIndex, float frequency, float sampleRate, float amplitude)
