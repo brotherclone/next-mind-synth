@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class NoteManager : Singleton<NoteManager>
 {
     protected NoteManager() {}
-    public string noteDataPath;
+    private readonly string _noteDataPath = Application.streamingAssetsPath + "/notes.json";
     private NoteCollection _noteCollection;
     public List<Note> notes;
     public List<Note> currentScale;
@@ -59,7 +59,7 @@ public class NoteManager : Singleton<NoteManager>
     
     private void LoadNoteData()
     {
-        using (StreamReader stream = new StreamReader(noteDataPath))
+        using (StreamReader stream = new StreamReader(_noteDataPath))
         {
             string json = stream.ReadToEnd();
             readyText.text = json;
