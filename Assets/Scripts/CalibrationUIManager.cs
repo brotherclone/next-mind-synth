@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using NextMind;
 using NextMind.Calibration;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,9 +25,12 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
     private List<GameObject> calibrationTagCounters;
     
     private List<float> _calibrationConfidence;
+
+    private NeuroManager _neuroManager;
     
     private void Start()
     {
+        _neuroManager = GameObject.FindObjectOfType<NeuroManager>();
         ToggleState(CalibrationUIState.PreCalibration);
     }
 
