@@ -57,7 +57,7 @@ public class PlayTagController : MonoBehaviour
     private void OnTagTrigger()
     {
         Debug.Log("trigger");
-        NoteManager.Instance.setCurrentNote(position);
+        NoteManager.Instance.SetCurrentNote(position);
     }
     
     private void Update()

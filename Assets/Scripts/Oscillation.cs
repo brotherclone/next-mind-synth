@@ -21,8 +21,8 @@ public class Oscillation : MonoBehaviour
     {
         if (NoteManager.Instance)
         {
-            _amplitude = NoteManager.Instance.currentVolumeLevel();
-            _frequency = NoteManager.Instance.currentFrequency();
+            _amplitude = NoteManager.Instance.CurrentVolumeLevel();
+            _frequency = NoteManager.Instance.CurrentFrequency();
         }
         else
         {

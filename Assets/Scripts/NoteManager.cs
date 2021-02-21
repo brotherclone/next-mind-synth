@@ -83,7 +83,8 @@ public class NoteManager : Singleton<NoteManager>
                 currentScale.Add(n);
             }
         }
-        setCurrentNote(0);
+        SetCurrentNote(0);
+        DroneManager.Instance.SetDroneNote(currentScale[0]);
         UIManager.Instance.RefreshNoteTexts();
     }
 
@@ -95,7 +96,7 @@ public class NoteManager : Singleton<NoteManager>
         }
     }
 
-    public void setCurrentNote(int position)
+    public void SetCurrentNote(int position)
     {
         if (position <= currentScale.Count)
         {
@@ -130,12 +131,12 @@ public class NoteManager : Singleton<NoteManager>
         return (int) m;
     }
     
-    public float currentFrequency()
+    public float CurrentFrequency()
     {
         return currentNote.frequency;
     }
 
-    public float currentVolumeLevel()
+    public float CurrentVolumeLevel()
     {
         return currentVolume;
     }
@@ -211,6 +212,7 @@ public class NoteManager : Singleton<NoteManager>
     {
         currentVolume = volume;
         var volumePercent = Math.Floor(volume * 100);
+        DroneManager.Instance.SetDroneVolume();
         Debug.Log(volume + "<-- volume" + volumePercent + "<--- %");
     }
     
