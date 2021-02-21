@@ -895,8 +895,8 @@ MonoBehaviour:
   maxNumberOfNeuroTags: 0
   description: []
   userName: default
-  simulateDevice: 1
-  simulateFocus: 1
+  simulateDevice: 0
+  simulateFocus: 0
   onDeviceConnected:
     m_PersistentCalls:
       m_Calls: []

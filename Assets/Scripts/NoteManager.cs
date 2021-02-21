@@ -12,9 +12,7 @@ public class NoteManager : Singleton<NoteManager>
     private NoteCollection _noteCollection;
     public List<Note> notes;
     public List<Note> currentScale;
-
-    [SerializeField] private Text readyText;
-
+    
     public string currentScaleName;
     /*
     Major	    T T S T T T S
@@ -42,7 +40,6 @@ public class NoteManager : Singleton<NoteManager>
     public Note currentNote;
     public float currentVolume;
     private float _previousVolume;
-    private bool _isMuted;
     private ScalesAndModes _currentScaleMode;
     private Note _currentScaleNote;
     private int _currentRootMidiNumber;
@@ -53,38 +50,30 @@ public class NoteManager : Singleton<NoteManager>
     private void Start()
     {
         LoadNoteData();
-        SetVolume(0.025f);
+        SetVolume(0.25f);
     }
-    
     
     private void LoadNoteData()
     {
         using (StreamReader stream = new StreamReader(_noteDataPath))
         {
             string json = stream.ReadToEnd();
-            readyText.text = json;
             _noteCollection = JsonUtility.FromJson<NoteCollection>(json);
             for (int i = 0; i < _noteCollection.notes.Length; ++i)
             {
                notes.Add( _noteCollection.notes[i]);
-               readyText.text = _noteCollection.notes[i].note_name;
             }
         }
         MakeScale(69, ScalesAndModes.Major);
     }
+
+
+    public void TurnOSCOnOff(bool isOn)
+    {
+        isTransmittingOSC = isOn;
+        UIManager.Instance.UpdateOSCButtons(isOn); 
+    }
     
-    public void TurnOnOSC()
-    {
-        isTransmittingOSC = true;
-        UIManager.Instance.UpdateOSCButtons(true);
-    }
-
-    public void TurnOffOSC()
-    {
-        isTransmittingOSC = false;
-        UIManager.Instance.UpdateOSCButtons(false);
-    }
-
     private void GetMidiNotesFromNumbers(IReadOnlyList<int> noteNumbers)
     {
         foreach (var t in noteNumbers)
@@ -94,7 +83,6 @@ public class NoteManager : Singleton<NoteManager>
                 currentScale.Add(n);
             }
         }
-
         setCurrentNote(0);
         UIManager.Instance.RefreshNoteTexts();
     }
@@ -122,8 +110,6 @@ public class NoteManager : Singleton<NoteManager>
         {
             currentNote = currentScale[0];
         }
-
-        readyText.text = currentNote.note_name;
     }
 
 
@@ -166,7 +152,6 @@ public class NoteManager : Singleton<NoteManager>
     
     private void MakeScale(int startMidiNumber, ScalesAndModes scalesAndModes)
     {
-        readyText.text = "MakeScale";
         currentScale.Clear();
         _currentScaleMode = scalesAndModes;
         _currentRootMidiNumber = startMidiNumber;
@@ -224,33 +209,11 @@ public class NoteManager : Singleton<NoteManager>
     
     public void SetVolume(float volume)
     {
-        if (volume <= 0.0 && _isMuted != true)
-        {
-            Mute();
-        }
-        else
-        {
-            currentVolume = volume;
-            var volumePercent = Math.Floor(volume * 100);
-        }
+        currentVolume = volume;
+        var volumePercent = Math.Floor(volume * 100);
+        Debug.Log(volume + "<-- volume" + volumePercent + "<--- %");
     }
-
-    public void Mute()
-    {
-        if (_isMuted != true)
-        {
-            _previousVolume = currentVolume;
-            SetVolume(0f);
-            _isMuted = true;
-        }
-        else
-        {
-            SetVolume(_previousVolume);
-            _isMuted = false;
-        }
-       
-    }
-
+    
 }
 
 public enum ScalesAndModes
