@@ -10,17 +10,12 @@ public class DroneController : MonoBehaviour
     public void HandleToggle(Toggle toggle)
     {
         Debug.Log(" t -->"+ toggle.isOn);
-    }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        ChangeDrone();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void ChangeDrone()
     {
-        
+        DroneManager.Instance.Toggle();
     }
 }
