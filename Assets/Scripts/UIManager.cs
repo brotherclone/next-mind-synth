@@ -13,6 +13,8 @@ public class UIManager : Singleton<UIManager>
     public Button waveSawtooth;
     public Button oscOn;
     public Button oscOff;
+    public Button droneOn;
+    public Button droneOff;
 
     public void RefreshNoteTexts()
     {
@@ -51,6 +53,7 @@ public class UIManager : Singleton<UIManager>
     {
         ButtonToggle(oscOff, false);
         ButtonToggle(oscOn, false);
+        
         if (isOn)
         {
             ButtonToggle(oscOn, false);
@@ -64,6 +67,25 @@ public class UIManager : Singleton<UIManager>
             ToggleButtonText(oscOff, true);
         }
     }
+
+    public void UpdateDroneButtons(bool isOn)
+    {
+        ButtonToggle(droneOff, false);
+        ButtonToggle(droneOn, false);
+        if (isOn)
+        {
+            ButtonToggle(droneOn, false);
+            ToggleButtonText(droneOn, true);
+            ToggleButtonText(droneOff, false);
+        }
+        else
+        {
+            ButtonToggle(droneOff, false);
+            ToggleButtonText(droneOn, false);
+            ToggleButtonText(droneOff, true);
+        }
+    }
+    
 
     private void ButtonToggle(Button button, bool isInitial)
     {
@@ -105,6 +127,8 @@ public class UIManager : Singleton<UIManager>
         Debug.Log("UI Loaded");
         ButtonToggle(oscOn, true);
         ToggleButtonText(oscOn, true);
+        ButtonToggle(droneOn, true);
+        ToggleButtonText(droneOn, true);
     }
     
     private void Start()

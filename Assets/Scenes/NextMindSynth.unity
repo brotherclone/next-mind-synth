@@ -293,7 +293,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 820, y: -55}
+  m_AnchoredPosition: {x: 755, y: -55}
   m_SizeDelta: {x: 50, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &95423373
@@ -746,7 +746,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 940, y: -55}
+  m_AnchoredPosition: {x: 899, y: -55}
   m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &196587873
@@ -905,6 +905,16 @@ PrefabInstance:
       propertyPath: oscOff
       value: 
       objectReference: {fileID: 2010150283}
+    - target: {fileID: 7797013589694040429, guid: a09a7cfcfbf9b448f8bb09f5724efbe1,
+        type: 3}
+      propertyPath: droneOn
+      value: 
+      objectReference: {fileID: 1092684353}
+    - target: {fileID: 7797013589694040429, guid: a09a7cfcfbf9b448f8bb09f5724efbe1,
+        type: 3}
+      propertyPath: droneOff
+      value: 
+      objectReference: {fileID: 893491387}
     - target: {fileID: 7797013589694040429, guid: a09a7cfcfbf9b448f8bb09f5724efbe1,
         type: 3}
       propertyPath: alertText
@@ -2677,7 +2687,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1000, y: -55}
+  m_AnchoredPosition: {x: 959, y: -55}
   m_SizeDelta: {x: 50, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &850697771
@@ -2724,15 +2734,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 77764960}
-        m_MethodName: TurnOnOSC
-        m_Mode: 1
+        m_MethodName: TurnOSCOnOff
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &850697772
 MonoBehaviour:
@@ -2885,7 +2895,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 760, y: -55}
+  m_AnchoredPosition: {x: 695, y: -55}
   m_SizeDelta: {x: 50, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &862833720
@@ -3224,7 +3234,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 893491388}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2047248542}
+        m_MethodName: TurnDroneOnOff
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &893491388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3782,7 +3803,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1092684354}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2047248542}
+        m_MethodName: TurnDroneOnOff
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1092684354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4463,7 +4495,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 630, y: -55}
+  m_AnchoredPosition: {x: 565, y: -55}
   m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1326868995
@@ -6891,7 +6923,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1060, y: -55}
+  m_AnchoredPosition: {x: 1019, y: -55}
   m_SizeDelta: {x: 50, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2010150283
@@ -6938,8 +6970,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 77764960}
-        m_MethodName: TurnOffOSC
-        m_Mode: 1
+        m_MethodName: TurnOSCOnOff
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7259,6 +7291,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2043366718}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2047248542 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9217756138877140580, guid: 9c4fee9cb712d4e4ea3196e8b1150296,
+    type: 3}
+  m_PrefabInstance: {fileID: 8848920097484602476}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82ea02cc1c7ab4222a602635f1c91afb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2077181375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7774,7 +7818,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 700, y: -55}
+  m_AnchoredPosition: {x: 635, y: -55}
   m_SizeDelta: {x: 50, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2128528230
@@ -8192,7 +8236,7 @@ PrefabInstance:
     - target: {fileID: 7688016382367538040, guid: 9c4fee9cb712d4e4ea3196e8b1150296,
         type: 3}
       propertyPath: m_Volume
-      value: 0
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 7688016382367538040, guid: 9c4fee9cb712d4e4ea3196e8b1150296,
         type: 3}

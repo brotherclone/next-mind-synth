@@ -40,7 +40,6 @@ public class NoteManager : Singleton<NoteManager>
     public Note currentNote;
     public float currentVolume;
     private float _previousVolume;
-    private bool _isMuted;
     private ScalesAndModes _currentScaleMode;
     private Note _currentScaleNote;
     private int _currentRootMidiNumber;
@@ -51,6 +50,7 @@ public class NoteManager : Singleton<NoteManager>
     private void Start()
     {
         LoadNoteData();
+        SetVolume(0.25f);
     }
     
     private void LoadNoteData()
@@ -66,19 +66,14 @@ public class NoteManager : Singleton<NoteManager>
         }
         MakeScale(69, ScalesAndModes.Major);
     }
+
+
+    public void TurnOSCOnOff(bool isOn)
+    {
+        isTransmittingOSC = isOn;
+        UIManager.Instance.UpdateOSCButtons(isOn); 
+    }
     
-    public void TurnOnOSC()
-    {
-        isTransmittingOSC = true;
-        UIManager.Instance.UpdateOSCButtons(true);
-    }
-
-    public void TurnOffOSC()
-    {
-        isTransmittingOSC = false;
-        UIManager.Instance.UpdateOSCButtons(false);
-    }
-
     private void GetMidiNotesFromNumbers(IReadOnlyList<int> noteNumbers)
     {
         foreach (var t in noteNumbers)
@@ -214,34 +209,11 @@ public class NoteManager : Singleton<NoteManager>
     
     public void SetVolume(float volume)
     {
-        Debug.Log(volume + "<-- volume");
-        // if (volume <= 0.0 && _isMuted != true)
-        // {
-        //     Mute();
-        // }
-        // else
-        // {
-        //     currentVolume = volume;
-        //     var volumePercent = Math.Floor(volume * 100);
-        // }
+        currentVolume = volume;
+        var volumePercent = Math.Floor(volume * 100);
+        Debug.Log(volume + "<-- volume" + volumePercent + "<--- %");
     }
-
-    public void Mute()
-    {
-        if (_isMuted != true)
-        {
-            _previousVolume = currentVolume;
-            SetVolume(0f);
-            _isMuted = true;
-        }
-        else
-        {
-            SetVolume(_previousVolume);
-            _isMuted = false;
-        }
-       
-    }
-
+    
 }
 
 public enum ScalesAndModes

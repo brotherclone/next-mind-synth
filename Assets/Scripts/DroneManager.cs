@@ -26,19 +26,24 @@ public class DroneManager : Singleton<DroneManager>
         m_DroneAudioSource = GetComponent<AudioSource>();
         isPlaying = false;
     }
-    
 
-    public void Toggle()
+    public void TurnDroneOnOff(bool isOn)
     {
-        isPlaying = !isPlaying;
-        if (isPlaying == false)
+        isPlaying = isOn;
+        UIManager.Instance.UpdateDroneButtons(isOn);
+        PlayStopDrone();
+    }
+
+    private void PlayStopDrone()
+    {
+        if (isPlaying == true)
         {
-            m_DroneAudioSource.Stop(); 
+            m_DroneAudioSource.Play(); 
         }
         else
         {
-            m_DroneAudioSource.Play();  
+            m_DroneAudioSource.Stop(); 
         }
     }
-
+    
 }
