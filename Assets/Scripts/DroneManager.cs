@@ -4,7 +4,7 @@ public class DroneManager : Singleton<DroneManager>
 {
     protected DroneManager() {}
     
-    private AudioSource m_DroneAudioSource;
+    private AudioSource _mDroneAudioSource;
 
     public bool isPlaying;
 
@@ -20,12 +20,65 @@ public class DroneManager : Singleton<DroneManager>
     public AudioClip aDrone;
     public AudioClip aSharpDrone;
     public AudioClip bDrone;
+
+    private AudioClip _currentDrone;
     
     private void Start()
     {
-        m_DroneAudioSource = GetComponent<AudioSource>();
+        _mDroneAudioSource = GetComponent<AudioSource>();
         isPlaying = false;
     }
+
+    public void SetDroneNote(Note note)
+    {
+        _mDroneAudioSource.Stop(); 
+        switch (note.note_name)
+        {
+            case "A":
+                _currentDrone = aDrone;
+                break;
+            case "A#":
+                _currentDrone = aSharpDrone;
+                break;
+            case "B":
+                _currentDrone = bDrone;
+                break;
+            case "C":
+                _currentDrone = cDrone;
+                break;
+            case "C#":
+                _currentDrone = cSharpDrone;
+                break;
+            case "D":
+                _currentDrone = dDrone;
+                break;
+            case "D#":
+                _currentDrone = dSharpDrone;
+                break;
+            case "E":
+                _currentDrone = eDrone;
+                break;
+            case "F":
+                _currentDrone = fDrone;
+                break;
+            case "F#":
+                _currentDrone = fSharpDrone;
+                break;
+            case "G":
+                _currentDrone = gDrone;
+                break;
+            case "G#":
+                _currentDrone = gSharpDrone;
+                break;
+            default:
+                Debug.Log("Unknown note sent to Drone Manager. Setting to 440/A anyway.");
+                _currentDrone = aDrone;
+                break;
+        }
+        _mDroneAudioSource.clip = _currentDrone;
+        _mDroneAudioSource.Play();
+    }
+    
 
     public void TurnDroneOnOff(bool isOn)
     {
@@ -36,14 +89,18 @@ public class DroneManager : Singleton<DroneManager>
 
     private void PlayStopDrone()
     {
-        if (isPlaying == true)
+        if (isPlaying)
         {
-            m_DroneAudioSource.Play(); 
+            _mDroneAudioSource.Play(); 
         }
         else
         {
-            m_DroneAudioSource.Stop(); 
+            _mDroneAudioSource.Stop(); 
         }
     }
-    
+
+    public void SetDroneVolume()
+    {
+        _mDroneAudioSource.volume = NoteManager.Instance.currentVolume;
+    }
 }
