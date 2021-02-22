@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using UnityEngine.Serialization;
 
 public class IntroManager : Singleton<IntroManager>
 {
@@ -13,11 +8,14 @@ public class IntroManager : Singleton<IntroManager>
     [SerializeField] private GameObject startButton;
 
     [SerializeField] private Text startText;
+
+    public Text versionText;
     
     private void Start()
     {
         SetUpButtons();
         ToggleState(IntroUIStates.Start);
+        versionText.text = "Version: " +Application.version;
     }
 
     private void Awake()
