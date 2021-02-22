@@ -46,11 +46,20 @@ public class NoteManager : Singleton<NoteManager>
     private string _currentScaleName;
     public OSC osc;
     public bool isTransmittingOSC;
+    public Text oscMonitorText;
+    private OSCInfo _oscInfo;
+    [SerializeField]
+    private string oscAddress;
     
     private void Start()
     {
         LoadNoteData();
         SetVolume(0.25f);
+    }
+
+    public void SetUpOSCInfo(int _in, int _out, string _port)
+    {
+        _oscInfo = new OSCInfo(_in, _out, _port, oscAddress);
     }
     
     private void LoadNoteData()
@@ -72,6 +81,7 @@ public class NoteManager : Singleton<NoteManager>
     {
         isTransmittingOSC = isOn;
         UIManager.Instance.UpdateOSCButtons(isOn); 
+        oscMonitorText.gameObject.SetActive(isOn);
     }
     
     private void GetMidiNotesFromNumbers(IReadOnlyList<int> noteNumbers)
@@ -117,11 +127,12 @@ public class NoteManager : Singleton<NoteManager>
     private void TransmitOSC(Note note)
     {
         var _oscMessage = new OscMessage();
-        _oscMessage.address = "/NextMindSynth/Cantor";
+        _oscMessage.address = oscAddress;
         _oscMessage.values.Add(note.midi_number);
         var vol = CurrentVolumeToMIDI();
         _oscMessage.values.Add(vol);
         osc.Send(_oscMessage);
+        oscMonitorText.text = _oscInfo.MakeMessage(note.midi_number, vol);
     }
 
     private int CurrentVolumeToMIDI()
@@ -213,7 +224,6 @@ public class NoteManager : Singleton<NoteManager>
         currentVolume = volume;
         var volumePercent = Math.Floor(volume * 100);
         DroneManager.Instance.SetDroneVolume();
-        Debug.Log(volume + "<-- volume" + volumePercent + "<--- %");
     }
     
 }
@@ -229,4 +239,28 @@ public enum ScalesAndModes
     Mixolydian,
     Aeolian,
     Locrian
+}
+
+public class OSCInfo
+{
+    private int inPort, outPort, midiNumber, volume;
+    private string outIP, outAddress;
+
+
+    public OSCInfo(int _inPort, int _outPort, string _outIP, string _outAddress)
+    {
+        inPort = _inPort;
+        outPort = _outPort;
+        outIP = _outIP;
+        outAddress = _outAddress;
+        midiNumber = 0;
+        volume = 0;
+    }
+    
+    public String MakeMessage(int _midi, int _volume)
+    {
+        midiNumber = _midi;
+        volume = _volume;
+        return outIP+"/"+outPort+"/"+outAddress+" MIDI:"+midiNumber+", "+volume;
+    }
 }
