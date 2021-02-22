@@ -23,7 +23,7 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
     
     [SerializeField]
     private List<GameObject> calibrationTagCounters;
-    
+    [SerializeField]
     private List<float> _calibrationConfidence;
 
     private NeuroManager _neuroManager;
