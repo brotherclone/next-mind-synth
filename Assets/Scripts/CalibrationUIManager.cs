@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using NextMind;
-using NextMind.Calibration;
 using UnityEngine;
 using UnityEngine.UI;
-
+using NextMind.Calibration;
 
 public class CalibrationUIManager : Singleton<CalibrationUIManager>
 {
@@ -23,26 +21,35 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
     
     [SerializeField]
     private List<GameObject> calibrationTagCounters;
+    
     [SerializeField]
-    private List<float> _calibrationConfidence;
+    private List<float> calibrationConfidence;
+    
+    public CalibrationManager calibrationManager;
 
-    private NeuroManager _neuroManager;
+    private GameObject _currentCounter;
+
+    private bool _countersAnimating = false;
+
+    private Vector3 _previousCounterScale;
     
     private void Start()
     {
-        _neuroManager = GameObject.FindObjectOfType<NeuroManager>();
         ToggleState(CalibrationUIState.PreCalibration);
+        calibrationManager.SetNeuroTagBehaviour(new CalibrationTagBehavior());
     }
 
     public void AdvanceTagCounter()
     {
+        var currentSpriteObj = calibrationTagCounters[currentCalibrationTagIndex];
+        ScaleBounce(currentSpriteObj);
         if (currentCalibrationTagIndex < 0)
         {
             currentCalibrationTagIndex = 0;
         }
         else
         {
-            if (currentCalibrationTagIndex + 1 < _calibrationConfidence.Count)
+            if (currentCalibrationTagIndex + 1 < calibrationConfidence.Count)
             {
                 ++currentCalibrationTagIndex;
             } 
@@ -51,19 +58,43 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
 
     public void TagTriggered()
     {
-        _calibrationConfidence[currentCalibrationTagIndex] = 1.0f;
+        calibrationConfidence[currentCalibrationTagIndex] = 1.0f;
+    }
+
+    private void ScaleBounce(GameObject bouncer)
+    {
+        _countersAnimating = true;
+        _previousCounterScale = bouncer.transform.localScale;
+        _currentCounter = bouncer;
+        if (currentCalibrationTagIndex > 0)
+        {
+            var previousSpriteObj = calibrationTagCounters[currentCalibrationTagIndex-1];
+            previousSpriteObj.transform.localScale =_previousCounterScale;  
+        }
+    }
+
+    private void Update()
+    {
+        if (_countersAnimating)
+        {
+            if (_currentCounter.transform.transform.localScale.x > 8.0f)
+            {
+                _currentCounter.transform.localScale = Vector3.Lerp(   _currentCounter.transform.localScale, _currentCounter.transform.localScale * 1.05f, Time.deltaTime * 5);
+
+            } 
+        }
     }
 
     public void UpdateConfidence(float currentConfidence)
     {
-        _calibrationConfidence[currentCalibrationTagIndex] = currentConfidence;
+        calibrationConfidence[currentCalibrationTagIndex] = currentConfidence;
     }
 
     public void TagCounterAnimate()
     {
         var currentSpriteObj = calibrationTagCounters[currentCalibrationTagIndex];
         var currentSprite = currentSpriteObj.GetComponent<SpriteRenderer>();
-        currentSprite.color =  new Color (0, 1, 0, _calibrationConfidence[currentCalibrationTagIndex]); 
+        currentSprite.color =  new Color (1, 1, 1, calibrationConfidence[currentCalibrationTagIndex]);
     }
     
     private void SetUpCounters()
@@ -73,13 +104,14 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
         {
             var currentSprite = t.GetComponent<SpriteRenderer>();
             currentSprite.color =  new Color (1, 1, 1, 0.25f);
-            _calibrationConfidence.Add(0.0f);
+            calibrationConfidence.Add(0.0f);
         }
     }
 
     public void DeviceFound()
     {
         ToggleState(CalibrationUIState.Calibration);
+        calibrationManager.StartCalibration();
     }
     
     private void SetUpButtons()

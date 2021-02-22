@@ -13,7 +13,7 @@ public class CalibrationTagController : MonoBehaviour
 
     private float _targetConfidenceValue = 0;
 
-    private const float confidenceSmoothingSpeed = 5;
+    private const float ConfidenceSmoothingSpeed = 5;
 
     
     private void Awake()
@@ -41,14 +41,12 @@ public class CalibrationTagController : MonoBehaviour
     
     private void Update()
     {
-  
         HandleConfidenceUpdate();
-
     }
     
     private void HandleConfidenceUpdate()
     {
-        _currentConfidenceValue = Mathf.Lerp(_currentConfidenceValue, _targetConfidenceValue, confidenceSmoothingSpeed * Time.deltaTime); 
+        _currentConfidenceValue = Mathf.Lerp(_currentConfidenceValue, _targetConfidenceValue, ConfidenceSmoothingSpeed * Time.deltaTime); 
         CalibrationUIManager.Instance.UpdateConfidence(_currentConfidenceValue);
     }
     
