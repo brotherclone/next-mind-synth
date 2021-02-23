@@ -18,10 +18,12 @@ public class PlayTagController : MonoBehaviour
     private float _currentConfidenceValue = 0;
 
     private float _targetConfidenceValue = 0;
-
-    private bool _interpolateConfidenceValue = true;
-
+    
     private float confidenceSmoothingSpeed = 5;
+
+    public Image focusBackgroundImage;
+
+    private float _alpha = 0;
     
     private void Awake()
     {
@@ -64,21 +66,13 @@ public class PlayTagController : MonoBehaviour
     {
         HandleConfidenceUpdate();
     }
+    
     private void HandleConfidenceUpdate()
     {
-        if (_interpolateConfidenceValue)
-        {
-            _currentConfidenceValue = Mathf.Lerp(_currentConfidenceValue, _targetConfidenceValue, confidenceSmoothingSpeed * Time.deltaTime);
-        }
-        else
-        {
-            _currentConfidenceValue = _targetConfidenceValue;
-        }
-
-        if (_currentConfidenceValue > 0.075f)
-        {
-            FocusParticleManager.Instance.UpdateFocusParticles(neuroTag.transform.position);
-        }
+        _currentConfidenceValue = Mathf.Lerp(_currentConfidenceValue, _targetConfidenceValue, confidenceSmoothingSpeed * Time.deltaTime);
+        _alpha = 1f * _currentConfidenceValue;
+        Debug.Log(_alpha);
+        //focusBackgroundImage.material.color = new Color(255, 92, 92, _alpha);
     }
     
     private void OnConfidenceUpdated(float value)
