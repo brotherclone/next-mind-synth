@@ -16,6 +16,13 @@ public class UIManager : Singleton<UIManager>
     public Button droneOn;
     public Button droneOff;
 
+    public Color salmon = new Color(255, 92,92, 1);
+    public Color seaMist = new Color(99, 185, 149, 1);
+    public Color deepRed = new Color(19, 0, 0, 1);
+    public Color offBlack = new Color(19, 0,0, 1);
+    public Color foggyDay = new Color(125, 132, 145, 1);
+    public Color offWhite = new Color(250, 255, 255, 1);
+    
     public void RefreshNoteTexts()
     {
         for (var i = 0; i < NoteManager.Instance.currentScale.Count; ++i)
@@ -92,19 +99,19 @@ public class UIManager : Singleton<UIManager>
         if (isInitial == false)
         {
             ColorBlock colors = button.colors;
-            colors.normalColor = Color.white;
-            colors.pressedColor = Color.magenta;
-            colors.highlightedColor = Color.cyan;
-            colors.selectedColor = Color.cyan;
+            colors.normalColor = offWhite;
+            colors.pressedColor = salmon;
+            colors.highlightedColor = seaMist;
+            colors.selectedColor = seaMist;
             button.colors = colors;
         }
         else
         {
             ColorBlock colors = button.colors;
-            colors.normalColor = Color.cyan;
-            colors.pressedColor = Color.cyan;
-            colors.highlightedColor = Color.cyan;
-            colors.selectedColor = Color.cyan;
+            colors.normalColor = seaMist;
+            colors.pressedColor = seaMist;
+            colors.highlightedColor = seaMist;
+            colors.selectedColor = seaMist;
             button.colors = colors;
         }
     }
@@ -114,11 +121,11 @@ public class UIManager : Singleton<UIManager>
         var text = button.GetComponentInChildren<Text>();
         if (isOn)
         {
-            text.color = Color.cyan;
+            text.color = seaMist;
         }
         else
         {
-            text.color = Color.white;
+            text.color = offWhite;
         }
     }
     

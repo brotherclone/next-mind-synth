@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class IntroManager : Singleton<IntroManager>
 {
     protected IntroManager() {}
 
-    [SerializeField] private GameObject startButton;
+    [SerializeField] private Button startButton;
 
     [SerializeField] private Text startText;
 
@@ -41,19 +43,20 @@ public class IntroManager : Singleton<IntroManager>
 
     private void ToggleState(IntroUIStates introUIStates)
     {
+        
         switch (introUIStates)
         {
-            case IntroUIStates.Start:
-                startText.text = "Initializing";
-                startButton.SetActive(false);
-                break;
             case IntroUIStates.Waiting:
-                startText.text = "Searching for NextMind device";
-                startButton.SetActive(false);
+                startText.text = "Initializing.";
+                startButton.gameObject.SetActive(false);
+                break;
+            case IntroUIStates.Start:
+                startText.text = "Searching for NextMind device. This application requires o";
+                startButton.gameObject.SetActive(false);
                 break;
             case IntroUIStates.DeviceConnected:
                 startText.text = "NextMind available. Proceed to calibration";
-                startButton.SetActive(true);
+                startButton.gameObject.SetActive(true);
                 break;
             default:
                 Debug.Log("Unknown Intro UI State");
