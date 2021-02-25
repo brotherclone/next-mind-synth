@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DroneManager : Singleton<DroneManager>
 {
     protected DroneManager() {}
     
-    private AudioSource _mDroneAudioSource;
+    public AudioSource mDroneAudioSource;
 
     public bool isPlaying;
 
@@ -25,13 +26,13 @@ public class DroneManager : Singleton<DroneManager>
     
     private void Start()
     {
-        _mDroneAudioSource = GetComponent<AudioSource>();
+        mDroneAudioSource = GetComponent<AudioSource>();
         isPlaying = false;
     }
 
     public void SetDroneNote(Note note)
     {
-        _mDroneAudioSource.Stop(); 
+        mDroneAudioSource.Stop(); 
         switch (note.note_name)
         {
             case "A":
@@ -75,8 +76,8 @@ public class DroneManager : Singleton<DroneManager>
                 _currentDrone = aDrone;
                 break;
         }
-        _mDroneAudioSource.clip = _currentDrone;
-        _mDroneAudioSource.Play();
+        mDroneAudioSource.clip = _currentDrone;
+        mDroneAudioSource.Play();
     }
     
 
@@ -91,16 +92,16 @@ public class DroneManager : Singleton<DroneManager>
     {
         if (isPlaying)
         {
-            _mDroneAudioSource.Play(); 
+            mDroneAudioSource.Play(); 
         }
         else
         {
-            _mDroneAudioSource.Stop(); 
+            mDroneAudioSource.Stop(); 
         }
     }
 
     public void SetDroneVolume()
     {
-        _mDroneAudioSource.volume = NoteManager.Instance.currentVolume;
+        mDroneAudioSource.volume = NoteManager.Instance.currentVolume;
     }
 }
