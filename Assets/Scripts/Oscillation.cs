@@ -1,30 +1,33 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Oscillation : Singleton<Oscillation>
 {
-    protected Oscillation(){}
+    protected Oscillation()
+    {
+    }
+
     private readonly float sampleRate = 44100;
     private float _frequency = 1f;
     private float _amplitude = 0.1f;
-    public SignalType signalType;
+    public SignalTypes signalTypes;
     private int _timeIndex = 0;
     private AudioSource _mOscillatorAudioSource;
 
     private void Start()
     {
         _mOscillatorAudioSource = GetComponent<AudioSource>();
-        signalType = SignalType.Triangle;
-        UIManager.Instance.UpdateWaveButtons(SignalType.Triangle, true);
+        signalTypes = SignalTypes.Triangle;
+        UIManager.Instance.UpdateWaveButtons(SignalTypes.Triangle, true);
     }
 
     public void SetOscillatorVolume()
     {
-        _mOscillatorAudioSource.volume = NoteManager.Instance.currentVolume;
+        if (NoteManager.Instance != null && _mOscillatorAudioSource != null)
+        {
+            _mOscillatorAudioSource.volume = NoteManager.Instance.currentVolume;
+        }
     }
-    
+
     void OnAudioFilterRead(float[] data, int channels)
     {
         if (NoteManager.Instance)
@@ -37,12 +40,11 @@ public class Oscillation : Singleton<Oscillation>
             _amplitude = 0.0f;
             _frequency = 440f;
         }
-        
+
         for (int i = 0; i < data.Length; i += channels)
         {
-            
             data[i] = SignalGeneration(_timeIndex, _frequency, sampleRate, _amplitude);
-            
+
             if (channels == 2)
                 data[i + 1] = data[i];
 
@@ -52,60 +54,49 @@ public class Oscillation : Singleton<Oscillation>
 
     public void SwitchSignalToTriangle()
     {
-        signalType = SignalType.Triangle;
-        UIManager.Instance.UpdateWaveButtons(SignalType.Triangle, false);
+        signalTypes = SignalTypes.Triangle;
+        UIManager.Instance.UpdateWaveButtons(SignalTypes.Triangle, false);
     }
 
     public void SwitchSignalToSquare()
     {
-        signalType = SignalType.Square;
-        UIManager.Instance.UpdateWaveButtons(SignalType.Square, false);
+        signalTypes = SignalTypes.Square;
+        UIManager.Instance.UpdateWaveButtons(SignalTypes.Square, false);
     }
-    
+
     public void SwitchSignalToSawTooth()
     {
-        signalType = SignalType.Sawtooth;
-        UIManager.Instance.UpdateWaveButtons(SignalType.Sawtooth, false);
+        signalTypes = SignalTypes.Sawtooth;
+        UIManager.Instance.UpdateWaveButtons(SignalTypes.Sawtooth, false);
     }
-    
+
     public void SwitchSignalToSine()
     {
-        signalType = SignalType.Sine;
-        UIManager.Instance.UpdateWaveButtons(SignalType.Sine, false);
+        signalTypes = SignalTypes.Sine;
+        UIManager.Instance.UpdateWaveButtons(SignalTypes.Sine, false);
     }
-    
-    public float SignalGeneration(int timeIndex, float frequency, float sampleRate, float amplitude)
+
+    private float SignalGeneration(int timeIndex, float frequency, float sampleRate, float amplitude)
     {
-        float signalValue = 0f;
-        float t = (frequency * timeIndex) / sampleRate;
-        
-        switch (signalType)
+        var signalValue = 0f;
+        var t = (frequency * timeIndex) / sampleRate;
+
+        switch (signalTypes)
         {
-            case SignalType.Sine:
-                //sin( 2 * pi * t )
+            case SignalTypes.Sine:
                 signalValue = Mathf.Sin(2 * Mathf.PI * t);
                 break;
-            case SignalType.Square:
-                //sign( sin( 2 * pi * t ) )
-                signalValue = Mathf.Sign(Mathf.Sin(2 * Mathf.PI * t ));
+            case SignalTypes.Square:
+                signalValue = Mathf.Sign(Mathf.Sin(2 * Mathf.PI * t));
                 break;
-            case SignalType.Triangle:
-                // 2 * abs( t - 2 * floor( t / 2 ) - 1 ) - 1
-                signalValue = (1f-4f * Mathf.Abs( Mathf.Round(t-0.25f)-(t-0.25f)));
+            case SignalTypes.Triangle:
+                signalValue = (1f - 4f * Mathf.Abs(Mathf.Round(t - 0.25f) - (t - 0.25f)));
                 break;
-            case SignalType.Sawtooth:
-                // 2 * ( t/a - floor( t/a + 1/2 ) )
+            case SignalTypes.Sawtooth:
                 signalValue = 2f * (t - Mathf.Floor(t + 0.5f));
                 break;
         }
+
         return (signalValue * amplitude);
     }
-}
-
-public enum SignalType
-{
-    Sine,
-    Square,
-    Triangle,
-    Sawtooth
 }

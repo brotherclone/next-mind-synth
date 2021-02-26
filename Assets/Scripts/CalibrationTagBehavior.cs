@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using NextMind.Calibration;
 using NextMind.NeuroTags;
-using UnityEngine;
-
 
 public class CalibrationTagBehavior : TagCalibrationBehaviour
 {
@@ -10,12 +8,13 @@ public class CalibrationTagBehavior : TagCalibrationBehaviour
     {
         return;
     }
+
     public override IEnumerator OnStartCalibrating(NeuroTag tag)
     {
         CalibrationUIManager.Instance.TagCounterAnimate();
         yield break;
     }
-    
+
     public override IEnumerator OnEndCalibrating(NeuroTag tag)
     {
         CalibrationUIManager.Instance.AdvanceTagCounter();

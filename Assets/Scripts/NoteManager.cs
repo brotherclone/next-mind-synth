@@ -7,25 +7,15 @@ using UnityEngine.UI;
 
 public class NoteManager : Singleton<NoteManager>
 {
-    protected NoteManager() {}
+    protected NoteManager()
+    {
+    }
+
     private readonly string _noteDataPath = Application.streamingAssetsPath + "/notes.json";
     private NoteCollection _noteCollection;
     public List<Note> notes;
     public List<Note> currentScale;
-    
     public string currentScaleName;
-    /*
-    Major	    T T S T T T S
-    Minor	    T S T T S T T
-    Ionian	    T T S T T T S
-    Dorian	    T S T T T S T
-    Phrygian	S T T T S T T
-    Lydian	    T T T S T T S
-    Mixolydian	T T S T T S T
-    Aeolian	    T S T T S T T
-    Locrian	    S T T S T T T
-    */
-    
     private readonly int[] _majorSteps = new[] {2, 2, 1, 2, 2, 2, 1};
     private readonly int[] _minorSteps = new[] {2, 1, 2, 2, 1, 2, 2};
     private readonly int[] _ionianSteps = new[] {2, 2, 1, 2, 2, 2, 1};
@@ -36,7 +26,6 @@ public class NoteManager : Singleton<NoteManager>
     private readonly int[] _aeolianSteps = new[] {2, 1, 2, 2, 1, 2, 2};
     private readonly int[] _locrianSteps = new[] {1, 2, 2, 1, 2, 2, 2};
     private int[] _currentInterval = new int[8];
-
     public Note currentNote;
     public float currentVolume;
     private float _previousVolume;
@@ -48,9 +37,8 @@ public class NoteManager : Singleton<NoteManager>
     public bool isTransmittingOSC;
     public Text oscMonitorText;
     private OSCInfo _oscInfo;
-    [SerializeField]
-    private string oscAddress;
-    
+    [SerializeField] private string oscAddress;
+
     private void Start()
     {
         LoadNoteData();
@@ -61,7 +49,7 @@ public class NoteManager : Singleton<NoteManager>
     {
         _oscInfo = new OSCInfo(_in, _out, _port, oscAddress);
     }
-    
+
     private void LoadNoteData()
     {
         using (StreamReader stream = new StreamReader(_noteDataPath))
@@ -70,9 +58,10 @@ public class NoteManager : Singleton<NoteManager>
             _noteCollection = JsonUtility.FromJson<NoteCollection>(json);
             for (int i = 0; i < _noteCollection.notes.Length; ++i)
             {
-               notes.Add( _noteCollection.notes[i]);
+                notes.Add(_noteCollection.notes[i]);
             }
         }
+
         MakeScale(69, ScalesAndModes.Major);
     }
 
@@ -80,10 +69,10 @@ public class NoteManager : Singleton<NoteManager>
     public void TurnOSCOnOff(bool isOn)
     {
         isTransmittingOSC = isOn;
-        UIManager.Instance.UpdateOSCButtons(isOn); 
+        UIManager.Instance.UpdateOSCButtons(isOn);
         oscMonitorText.gameObject.SetActive(isOn);
     }
-    
+
     private void GetMidiNotesFromNumbers(IReadOnlyList<int> noteNumbers)
     {
         foreach (var t in noteNumbers)
@@ -93,6 +82,7 @@ public class NoteManager : Singleton<NoteManager>
                 currentScale.Add(n);
             }
         }
+
         SetCurrentNote(0);
         DroneManager.Instance.SetDroneNote(currentScale[0]);
         UIManager.Instance.RefreshNoteTexts();
@@ -141,7 +131,7 @@ public class NoteManager : Singleton<NoteManager>
         var m = Math.Round(volumePercent * 127 * 0.01);
         return (int) m;
     }
-    
+
     public float CurrentFrequency()
     {
         return currentNote.frequency;
@@ -161,7 +151,7 @@ public class NoteManager : Singleton<NoteManager>
     {
         MakeScale(_currentRootMidiNumber, scaleMode);
     }
-    
+
     private void MakeScale(int startMidiNumber, ScalesAndModes scalesAndModes)
     {
         currentScale.Clear();
@@ -169,7 +159,7 @@ public class NoteManager : Singleton<NoteManager>
         _currentRootMidiNumber = startMidiNumber;
 
         GetMidiNoteFromNumber(startMidiNumber);
-        
+
         switch (scalesAndModes)
         {
             case ScalesAndModes.Aeolian:
@@ -200,7 +190,7 @@ public class NoteManager : Singleton<NoteManager>
                 _currentInterval = _majorSteps;
                 break;
         }
-        
+
         var stepCounter = 0;
         var midiNoteCounter = startMidiNumber;
         var scaleMidiNumbers = new List<int>();
@@ -211,57 +201,16 @@ public class NoteManager : Singleton<NoteManager>
             midiNoteCounter += _currentInterval[stepCounter];
             scaleMidiNumbers.Add(midiNoteCounter);
             ++stepCounter;
-            // foreach (var num in scaleMidiNumbers)
-            // {
-            //     Debug.Log("checking number sequence -> " + num);
-            // }
         }
+
         GetMidiNotesFromNumbers(scaleMidiNumbers);
     }
-    
+
     public void SetVolume(float volume)
     {
         currentVolume = volume;
         var volumePercent = Math.Floor(volume * 100);
         DroneManager.Instance.SetDroneVolume();
         Oscillation.Instance.SetOscillatorVolume();
-    }
-    
-}
-
-public enum ScalesAndModes
-{
-    Major,
-    Minor,
-    Ionian,
-    Dorian,
-    Phrygian,
-    Lydian,
-    Mixolydian,
-    Aeolian,
-    Locrian
-}
-
-public class OSCInfo
-{
-    private int inPort, outPort, midiNumber, volume;
-    private string outIP, outAddress;
-
-
-    public OSCInfo(int _inPort, int _outPort, string _outIP, string _outAddress)
-    {
-        inPort = _inPort;
-        outPort = _outPort;
-        outIP = _outIP;
-        outAddress = _outAddress;
-        midiNumber = 0;
-        volume = 0;
-    }
-    
-    public String MakeMessage(int _midi, int _volume)
-    {
-        midiNumber = _midi;
-        volume = _volume;
-        return outIP+"/"+outPort+"/"+outAddress+" MIDI:"+midiNumber+", "+volume;
     }
 }

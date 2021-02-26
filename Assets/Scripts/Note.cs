@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using JetBrains.Annotations;
 
 [Serializable]
-public class Note {
-
+public class Note
+{
     public int midi_number;
     public float frequency;
     public int octave_number;
@@ -14,6 +13,6 @@ public class Note {
 
     public string GETMidiNoteName()
     {
-        return note_name+octave_number;
+        return note_name + octave_number;
     }
 }

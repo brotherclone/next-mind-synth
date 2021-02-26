@@ -1,30 +1,28 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using NextMind.Calibration;
 
 public class CalibrationUIManager : Singleton<CalibrationUIManager>
 {
-    protected CalibrationUIManager() {}
-    
+    protected CalibrationUIManager()
+    {
+    }
+
     public GameObject calibrationButtonGroup;
-    
+
     public GameObject postCalibrationButtonGroup;
-    
+
     public Text calibrationText;
 
     public string calibrationTextMessage;
 
     public int currentCalibrationTagIndex;
-    
-    [SerializeField]
-    private List<GameObject> calibrationTagCounters;
-    
-    [SerializeField]
-    private List<float> calibrationConfidence;
-    
+
+    [SerializeField] private List<GameObject> calibrationTagCounters;
+
+    [SerializeField] private List<float> calibrationConfidence;
+
     public CalibrationManager calibrationManager;
 
     private GameObject _currentCounter;
@@ -32,10 +30,10 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
     private bool _countersAnimating = false;
 
     private Vector3 _previousCounterScale;
-    
+
     private void Start()
     {
-        ToggleState(CalibrationUIState.PreCalibration);
+        ToggleState(CalibrationUIStates.PreCalibration);
         calibrationManager.SetNeuroTagBehaviour(new CalibrationTagBehavior());
     }
 
@@ -52,7 +50,7 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
             if (currentCalibrationTagIndex + 1 < calibrationConfidence.Count)
             {
                 ++currentCalibrationTagIndex;
-            } 
+            }
         }
     }
 
@@ -68,8 +66,8 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
         _currentCounter = bouncer;
         if (currentCalibrationTagIndex > 0)
         {
-            var previousSpriteObj = calibrationTagCounters[currentCalibrationTagIndex-1];
-            previousSpriteObj.transform.localScale =_previousCounterScale;  
+            var previousSpriteObj = calibrationTagCounters[currentCalibrationTagIndex - 1];
+            previousSpriteObj.transform.localScale = _previousCounterScale;
         }
     }
 
@@ -79,9 +77,9 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
         {
             if (_currentCounter.transform.transform.localScale.x > 8.0f)
             {
-                _currentCounter.transform.localScale = Vector3.Lerp(   _currentCounter.transform.localScale, _currentCounter.transform.localScale * 1.05f, Time.deltaTime * 5);
-
-            } 
+                _currentCounter.transform.localScale = Vector3.Lerp(_currentCounter.transform.localScale,
+                    _currentCounter.transform.localScale * 1.05f, Time.deltaTime * 5);
+            }
         }
     }
 
@@ -94,26 +92,26 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
     {
         var currentSpriteObj = calibrationTagCounters[currentCalibrationTagIndex];
         var currentSprite = currentSpriteObj.GetComponent<SpriteRenderer>();
-        currentSprite.color =  new Color (1, 1, 1, calibrationConfidence[currentCalibrationTagIndex]);
+        currentSprite.color = new Color(1, 1, 1, calibrationConfidence[currentCalibrationTagIndex]);
     }
-    
+
     private void SetUpCounters()
     {
         currentCalibrationTagIndex = 0;
         foreach (var t in calibrationTagCounters)
         {
             var currentSprite = t.GetComponent<SpriteRenderer>();
-            currentSprite.color =  new Color (1, 1, 1, 0.25f);
+            currentSprite.color = new Color(1, 1, 1, 0.25f);
             calibrationConfidence.Add(0.0f);
         }
     }
 
     public void DeviceFound()
     {
-        ToggleState(CalibrationUIState.Calibration);
+        ToggleState(CalibrationUIStates.Calibration);
         calibrationManager.StartCalibration();
     }
-    
+
     private void SetUpButtons()
     {
         GameObject.Find("StartOverButton").GetComponentInChildren<Text>().text = "Start Over";
@@ -123,29 +121,28 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
         GameObject.Find("ProceedButton").GetComponentInChildren<Text>().text = "Proceed Anyway";
     }
 
-    public void ToggleState(CalibrationUIState calibrationUIState)
+    public void ToggleState(CalibrationUIStates calibrationUIStates)
     {
-        switch (calibrationUIState)
+        switch (calibrationUIStates)
         {
-  
-            case CalibrationUIState.PreCalibration:
+            case CalibrationUIStates.PreCalibration:
                 SetUpButtons();
                 SetUpCounters();
                 calibrationButtonGroup.SetActive(true);
                 postCalibrationButtonGroup.SetActive(false);
                 calibrationText.text = "Looking for NextMind";
                 break;
-            case CalibrationUIState.Calibration:
+            case CalibrationUIStates.Calibration:
                 calibrationButtonGroup.SetActive(true);
                 postCalibrationButtonGroup.SetActive(false);
                 calibrationText.text = "Concentrate on each tag to calibrate";
                 break;
-            case CalibrationUIState.PostCalibrationFailure:
+            case CalibrationUIStates.PostCalibrationFailure:
                 calibrationButtonGroup.SetActive(false);
                 postCalibrationButtonGroup.SetActive(true);
                 calibrationText.text = calibrationTextMessage;
                 break;
-            case CalibrationUIState.PostCalibrationSuccess:
+            case CalibrationUIStates.PostCalibrationSuccess:
                 calibrationButtonGroup.SetActive(false);
                 postCalibrationButtonGroup.SetActive(false);
                 calibrationText.text = calibrationTextMessage;
@@ -167,12 +164,12 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
 
     public void StartOverButtonAction()
     {
-        ToggleState(CalibrationUIState.Calibration);
+        ToggleState(CalibrationUIStates.Calibration);
     }
 
     public void SkipButtonAction()
     {
-        ToggleState(CalibrationUIState.PostCalibrationSuccess);
+        ToggleState(CalibrationUIStates.PostCalibrationSuccess);
     }
 
     public void GetHelpButtonAction()
@@ -182,15 +179,7 @@ public class CalibrationUIManager : Singleton<CalibrationUIManager>
 
     public void ProceedButtonAction()
     {
-        ToggleState(CalibrationUIState.PostCalibrationSuccess);
+        ToggleState(CalibrationUIStates.PostCalibrationSuccess);
     }
-    
 }
 
-public enum CalibrationUIState
-{
-    PreCalibration,
-    Calibration,
-    PostCalibrationFailure,
-    PostCalibrationSuccess
-}
