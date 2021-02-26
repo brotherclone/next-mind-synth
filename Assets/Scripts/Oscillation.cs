@@ -3,31 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Oscillation : MonoBehaviour
+public class Oscillation : Singleton<Oscillation>
 {
+    protected Oscillation(){}
     private readonly float sampleRate = 44100;
     private float _frequency = 1f;
     private float _amplitude = 0.1f;
     public SignalType signalType;
     private int _timeIndex = 0;
+    private AudioSource _mOscillatorAudioSource;
 
     private void Start()
     {
+        _mOscillatorAudioSource = GetComponent<AudioSource>();
         signalType = SignalType.Triangle;
         UIManager.Instance.UpdateWaveButtons(SignalType.Triangle, true);
     }
 
+    public void SetOscillatorVolume()
+    {
+        _mOscillatorAudioSource.volume = NoteManager.Instance.currentVolume;
+    }
+    
     void OnAudioFilterRead(float[] data, int channels)
     {
         if (NoteManager.Instance)
         {
-            _amplitude = NoteManager.Instance.CurrentVolumeLevel();
+            _amplitude = NoteManager.Instance.CurrentVolumeLevel() / 2f;
             _frequency = NoteManager.Instance.CurrentFrequency();
         }
         else
         {
-            _amplitude = 0.3f;
-            _frequency = 342f;
+            _amplitude = 0.0f;
+            _frequency = 440f;
         }
         
         for (int i = 0; i < data.Length; i += channels)

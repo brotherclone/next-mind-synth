@@ -224,6 +224,7 @@ public class NoteManager : Singleton<NoteManager>
         currentVolume = volume;
         var volumePercent = Math.Floor(volume * 100);
         DroneManager.Instance.SetDroneVolume();
+        Oscillation.Instance.SetOscillatorVolume();
     }
     
 }
