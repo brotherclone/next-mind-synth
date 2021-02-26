@@ -1,35 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class IntroManager : Singleton<IntroManager>
 {
-    protected IntroManager() {}
+    protected IntroManager()
+    {
+    }
 
     [SerializeField] private Button startButton;
 
     [SerializeField] private Text startText;
 
     public Text versionText;
-    
+
     private void Start()
     {
         SetUpButtons();
         ToggleState(IntroUIStates.Start);
-        versionText.text = "Version: " +Application.version;
+        versionText.text = "Version: " + Application.version;
     }
 
     private void Awake()
     {
         ToggleState(IntroUIStates.Waiting);
     }
-    
+
     private void SetUpButtons()
     {
         startButton.GetComponentInChildren<Text>().text = "Start Calibration";
     }
-    
+
     public void DeviceConnected()
     {
         ToggleState(IntroUIStates.DeviceConnected);
@@ -43,7 +43,6 @@ public class IntroManager : Singleton<IntroManager>
 
     private void ToggleState(IntroUIStates introUIStates)
     {
-        
         switch (introUIStates)
         {
             case IntroUIStates.Waiting:
@@ -51,7 +50,7 @@ public class IntroManager : Singleton<IntroManager>
                 startButton.gameObject.SetActive(false);
                 break;
             case IntroUIStates.Start:
-                startText.text = "Searching for NextMind device. This application requires o";
+                startText.text = "Searching for NextMind device. This application requires a NextMind device.";
                 startButton.gameObject.SetActive(false);
                 break;
             case IntroUIStates.DeviceConnected:
@@ -59,16 +58,8 @@ public class IntroManager : Singleton<IntroManager>
                 startButton.gameObject.SetActive(true);
                 break;
             default:
-                Debug.Log("Unknown Intro UI State");
+                Debug.Log("Unknown Intro UI State.");
                 break;
         }
     }
-}
-
-
-public enum IntroUIStates
-{
-    Start,
-    Waiting,
-    DeviceConnected
 }

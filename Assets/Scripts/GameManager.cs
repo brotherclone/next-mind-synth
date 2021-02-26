@@ -1,17 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class GameManager : Singleton<GameManager>
 {
     private string _currentSceneName = string.Empty;
     private List<AsyncOperation> _loadOperations;
     public GameObject[] systemPrefabs;
     private readonly List<GameObject> _instancedSystemPrefabs;
+
     public GameManager(List<GameObject> instancedSystemPrefabs)
     {
         _instancedSystemPrefabs = instancedSystemPrefabs;
     }
+
     private GameObject _prefabInstance;
 
     public void LoadScene(string currentScene)
@@ -22,6 +24,7 @@ public class GameManager : Singleton<GameManager>
             Debug.LogError("[GameManager] Unable to load " + currentScene);
             return;
         }
+
         asyncOperation.completed += OnLoadOperationComplete;
         _loadOperations.Add(asyncOperation);
         _currentSceneName = currentScene;
@@ -33,24 +36,27 @@ public class GameManager : Singleton<GameManager>
         {
             _loadOperations.Remove(asyncOperation);
         }
+
         Debug.Log("Scene loaded.");
     }
 
     void OnUnloadOperationComplete(AsyncOperation asyncOperation)
     {
-        Debug.Log("Scene unloaded."); 
+        Debug.Log("Scene unloaded.");
     }
+
     public void UnLoadScene(string currentScene)
     {
         AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(currentScene);
         if (asyncOperation == null)
         {
-            Debug.LogError("[GameManager] Unable to load " + currentScene);
+            Debug.LogError("[GameManager] unable to load " + currentScene);
             return;
         }
+
         asyncOperation.completed += OnUnloadOperationComplete;
     }
-    
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -68,7 +74,7 @@ public class GameManager : Singleton<GameManager>
             _instancedSystemPrefabs.Add(_prefabInstance);
         }
     }
-    
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -78,6 +84,7 @@ public class GameManager : Singleton<GameManager>
         {
             Destroy(_instancedSystemPrefabs[i]);
         }
+
         _instancedSystemPrefabs.Clear();
     }
 }

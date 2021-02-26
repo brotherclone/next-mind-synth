@@ -3,9 +3,8 @@ using UnityEngine.UI;
 
 public class VolumeController : MonoBehaviour
 {
-    
     public Slider slider;
-    
+
     void Start()
     {
         UpdateVolume();
@@ -15,7 +14,7 @@ public class VolumeController : MonoBehaviour
     {
         UpdateVolume();
     }
-    
+
     public void UpdateVolume()
     {
         NoteManager.Instance.SetVolume(slider.value);

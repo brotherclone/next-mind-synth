@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2074974344}
+  m_SkyboxMaterial: {fileID: 2017982476}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -5394,8 +5394,8 @@ MonoBehaviour:
   maxNumberOfNeuroTags: 0
   description: []
   userName: default
-  simulateDevice: 1
-  simulateFocus: 1
+  simulateDevice: 0
+  simulateFocus: 0
   onDeviceConnected:
     m_PersistentCalls:
       m_Calls: []
@@ -6870,19 +6870,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &2047248542 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9217756138877140580, guid: 9c4fee9cb712d4e4ea3196e8b1150296,
-    type: 3}
-  m_PrefabInstance: {fileID: 8848920097484602476}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82ea02cc1c7ab4222a602635f1c91afb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!21 &2074974344
+--- !u!21 &2017982476
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -7201,6 +7189,18 @@ Material:
     - _Tint: {r: 1, g: 1, b: 1, a: 0}
     - _Vector1: {r: 0, g: 1, b: 1, a: 0}
     - _water: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+--- !u!114 &2047248542 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9217756138877140580, guid: 9c4fee9cb712d4e4ea3196e8b1150296,
+    type: 3}
+  m_PrefabInstance: {fileID: 8848920097484602476}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82ea02cc1c7ab4222a602635f1c91afb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2078068277
 GameObject:
   m_ObjectHideFlags: 0
