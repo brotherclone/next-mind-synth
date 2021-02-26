@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,10 +22,15 @@ public class PlayTagController : MonoBehaviour
     
     private float confidenceSmoothingSpeed = 5;
 
-    public Image focusBackgroundImage;
-
-    private float _alpha = 0;
+    public GameObject backgroundImage;
     
+    private float _alpha = 0;
+
+    private void Start()
+    {
+        backgroundImage.SetActive(false);
+    }
+
     private void Awake()
     {
         if (neuroTag == null)
@@ -35,6 +41,7 @@ public class PlayTagController : MonoBehaviour
         {
             SetUpListeners();
         }
+        
     }
     
 
@@ -70,9 +77,21 @@ public class PlayTagController : MonoBehaviour
     private void HandleConfidenceUpdate()
     {
         _currentConfidenceValue = Mathf.Lerp(_currentConfidenceValue, _targetConfidenceValue, confidenceSmoothingSpeed * Time.deltaTime);
-        _alpha = 1f * _currentConfidenceValue;
-        Debug.Log(_alpha);
-        //focusBackgroundImage.material.color = new Color(255, 92, 92, _alpha);
+        // ToDo: This seems like an issue in Unity. Even with it's own material, alpha effects all UI elements.
+        // _alpha = 1f * _currentConfidenceValue;
+        // var img = backgroundImage.GetComponent<Image>();
+        // var col = img.material.color;
+        // col.a = _alpha;
+        // img.material.color = col;
+
+        if (_currentConfidenceValue > 0.05f)
+        {
+            backgroundImage.SetActive(true);
+        }
+        else
+        {
+            backgroundImage.SetActive(false);
+        }
     }
     
     private void OnConfidenceUpdated(float value)
